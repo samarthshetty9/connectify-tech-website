@@ -10,10 +10,6 @@ function FadeIn({
     children,
     delay = 0,
     className = "",
-}: {
-    children: React.ReactNode;
-    delay?: number;
-    className?: string;
 }) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-50px" });

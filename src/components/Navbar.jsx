@@ -32,7 +32,6 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-[72px]">
-                    {/* Logo */}
                     <Link href="/" className="flex items-center gap-2.5 group">
                         <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center font-bold text-white text-sm group-hover:scale-110 transition-transform duration-300">
                             C
@@ -42,7 +41,6 @@ export default function Navbar() {
                         </span>
                     </Link>
 
-                    {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-0.5">
                         {links.map((link) => (
                             <Link
@@ -64,17 +62,12 @@ export default function Navbar() {
                         </Link>
                     </div>
 
-                    {/* Mobile Toggle */}
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="md:hidden text-white p-2"
-                    >
+                    <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white p-2">
                         {isOpen ? <X size={22} /> : <Menu size={22} />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div

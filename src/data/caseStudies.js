@@ -1,17 +1,4 @@
-export interface CaseStudy {
-    slug: string;
-    title: string;
-    category: string;
-    domain: string;
-    shortDescription: string;
-    fullDescription: string;
-    challenge: string;
-    solution: string;
-    techStack: string[];
-    color: string;
-}
-
-export const caseStudies: CaseStudy[] = [
+export const caseStudies = [
     {
         slug: "taurus-career-ai",
         title: "Taurus Career AI",

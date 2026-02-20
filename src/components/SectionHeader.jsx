@@ -3,19 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-interface SectionHeaderProps {
-    label?: string;
-    title: string;
-    subtitle?: string;
-    centered?: boolean;
-}
-
-export default function SectionHeader({
-    label,
-    title,
-    subtitle,
-    centered = true,
-}: SectionHeaderProps) {
+export default function SectionHeader({ label, title, subtitle, centered = true }) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -36,10 +24,7 @@ export default function SectionHeader({
                 {title}
             </h2>
             {subtitle && (
-                <p
-                    className={`text-gray-400 text-base md:text-lg leading-relaxed ${centered ? "max-w-2xl mx-auto" : ""
-                        }`}
-                >
+                <p className={`text-gray-400 text-base md:text-lg leading-relaxed ${centered ? "max-w-2xl mx-auto" : ""}`}>
                     {subtitle}
                 </p>
             )}

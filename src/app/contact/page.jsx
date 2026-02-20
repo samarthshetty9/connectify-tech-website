@@ -9,10 +9,6 @@ function FadeIn({
     children,
     delay = 0,
     className = "",
-}: {
-    children: React.ReactNode;
-    delay?: number;
-    className?: string;
 }) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -41,7 +37,7 @@ export default function ContactPage() {
         name: "", email: "", company: "", service: "", message: "",
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const subject = encodeURIComponent(`Project Inquiry from ${formData.name} — ${formData.service}`);
         const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nService: ${formData.service}\n\nMessage:\n${formData.message}`);
