@@ -76,7 +76,7 @@ export default function HomePage() {
                     </motion.div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#050508] to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, var(--bg-primary), transparent)" }} />
             </section>
 
             {/* ===== MARQUEE ===== */}

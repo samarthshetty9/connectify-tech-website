@@ -150,9 +150,9 @@ export default function ContactPage() {
                                     <div>
                                         <label className="block text-xs font-medium text-gray-400 mb-1.5">Service Needed</label>
                                         <select value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })} className={`${inputClass} appearance-none cursor-pointer`}>
-                                            <option value="" className="bg-[#0c0c14]">Select a service</option>
+                                            <option value="" className="bg-[#0c0c14]" style={{ backgroundColor: "var(--dropdown-bg)" }}>Select a service</option>
                                             {serviceOptions.map((s) => (
-                                                <option key={s} value={s} className="bg-[#0c0c14]">{s}</option>
+                                                <option key={s} value={s} className="bg-[#0c0c14]" style={{ backgroundColor: "var(--dropdown-bg)" }}>{s}</option>
                                             ))}
                                         </select>
                                     </div>

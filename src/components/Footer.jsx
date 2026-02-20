@@ -14,7 +14,7 @@ const companyLinks = [
 
 export default function Footer() {
     return (
-        <footer className="border-t border-white/[0.04] bg-[#07070c]">
+        <footer className="border-t border-white/[0.04]" style={{ backgroundColor: "var(--footer-bg)" }}>
             <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
                     <div className="col-span-2 md:col-span-1">
