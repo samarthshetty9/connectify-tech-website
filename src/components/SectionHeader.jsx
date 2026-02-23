@@ -16,18 +16,19 @@ export default function SectionHeader({ label, title, subtitle, centered = true 
             className={`mb-12 ${centered ? "text-center" : ""}`}
         >
             {label && (
-                <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-[0.15em] bg-accent-blue/10 text-accent-blue border border-accent-blue/20 mb-4">
+                <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-[0.15em] mb-4" style={{ backgroundColor: "var(--selection-bg)", color: "var(--color-accent-blue)", border: "1px solid var(--border-color)" }}>
                     {label}
                 </span>
             )}
-            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-3">
+            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight mb-3" style={{ color: "var(--text-primary)" }}>
                 {title}
             </h2>
             {subtitle && (
-                <p className={`text-gray-400 text-base md:text-lg leading-relaxed ${centered ? "max-w-2xl mx-auto" : ""}`}>
+                <p className={`text-base md:text-lg leading-relaxed ${centered ? "max-w-2xl mx-auto" : ""}`} style={{ color: "var(--text-secondary)" }}>
                     {subtitle}
                 </p>
             )}
         </motion.div>
     );
 }
+

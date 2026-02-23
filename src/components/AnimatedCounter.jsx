@@ -35,7 +35,7 @@ export default function AnimatedCounter({ end, suffix = "", prefix = "", label, 
             <div className="text-4xl md:text-5xl font-extrabold gradient-text mb-1.5">
                 {prefix}{count}{suffix}
             </div>
-            <div className="text-xs text-gray-500 uppercase tracking-[0.15em] font-medium">
+            <div className="text-xs uppercase tracking-[0.15em] font-medium" style={{ color: "var(--text-muted)" }}>
                 {label}
             </div>
         </motion.div>

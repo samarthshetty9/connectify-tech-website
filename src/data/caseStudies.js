@@ -263,6 +263,30 @@ export const caseStudies = [
         techStack: ["React", "Node.js", "MongoDB", "Firebase", "AWS", "Stripe"],
         color: "from-lime-500 to-green-600",
     },
+    {
+        slug: "ai-video-networking",
+        title: "AI Video Networking Platform",
+        category: "AI Platform",
+        domain: "Communication",
+        shortDescription: "Secure and intelligent video solution with live transcription, automated MoMs, and an AI Meeting Assistant.",
+        fullDescription: "Connectify's AI-based video networking platform is a secure and intelligent solution designed to transform how employees collaborate, communicate, and conduct meetings. The system features vernacular language support, live transcription, and automatic generation of meeting summaries and minutes of meetings (MoMs) in both English and regional languages, enabling inclusive participation and improved documentation across departments. The platform also introduces a groundbreaking AI Meeting Assistant that can ask or answer questions on behalf of an official when they are unable to attend, ensuring continuity and clarity. With intelligent scheduling, smart nudges, and a context-aware interface.",
+        challenge: "Organizations face language barriers, tedious manual meeting documentation, and missed context when key stakeholders are unable to attend critical meetings.",
+        solution: "We built a robust video networking platform integrating AI for live transcription, automated summaries, and a novel AI Meeting Assistant capable of answering questions on behalf of absent users.",
+        techStack: ["React", "Node.js", "WebRTC", "Python", "OpenAI", "AWS"],
+        color: "from-blue-600 to-cyan-600",
+    },
+    {
+        slug: "consumer-loyalty",
+        title: "Consumer Loyalty App",
+        category: "Consumer",
+        domain: "E-Commerce",
+        shortDescription: "A plug and play customer engagement and rewards platform designed to increase retention and boost repeat purchases.",
+        fullDescription: "The Consumer Loyalty App is a plug and play customer engagement and rewards platform designed to help businesses increase retention, boost repeat purchases, and build stronger brand loyalty through personalized reward programs. Users can earn and redeem points, unlock tier-based benefits, and receive exclusive offers based on their activity and purchase behavior. The platform includes referral systems, gamified achievements, campaign management, and real-time rewards tracking—creating a seamless and fun loyalty experience that keeps users coming back.",
+        challenge: "Businesses struggle to retain customers and drive repeat purchases without a structured, highly engaging, and gamified approach to customer loyalty.",
+        solution: "We developed a customizable, plug-and-play loyalty platform featuring points tracking, tier-based benefits, gamified achievements, and an intuitive campaign management dashboard for businesses.",
+        techStack: ["React Native", "Node.js", "MongoDB", "Firebase", "AWS"],
+        color: "from-pink-500 to-rose-500",
+    },
 ];
 
 export const domains = [...new Set(caseStudies.map((c) => c.domain))];
