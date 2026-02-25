@@ -196,7 +196,8 @@ export default function Navbar() {
                         </button>
                         <Link
                             href="/contact"
-                            className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-accent-blue to-accent-purple text-white text-sm font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300 hover:scale-[1.02] flex items-center gap-1.5"
+                            className="px-5 py-2.5 rounded-lg text-white text-sm font-semibold hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-1.5"
+                            style={{ backgroundColor: "var(--color-violet-600, #7c3aed)" }}
                         >
                             Book Demo <ArrowRight size={14} />
                         </Link>
@@ -255,7 +256,8 @@ export default function Navbar() {
                                 <Link
                                     href="/contact"
                                     onClick={() => setIsOpen(false)}
-                                    className="block w-full text-center px-5 py-3 rounded-lg bg-gradient-to-r from-accent-blue to-accent-purple text-white text-sm font-semibold"
+                                    className="block w-full text-center px-5 py-3 rounded-lg text-white text-sm font-semibold shadow-md transition-all duration-300"
+                                    style={{ backgroundColor: "var(--color-violet-600, #7c3aed)" }}
                                 >
                                     Book Demo
                                 </Link>

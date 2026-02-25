@@ -20,17 +20,17 @@ const socialLinks = [
 
 export default function Footer() {
     return (
-        <footer style={{ borderTop: "1px solid var(--border-color)", backgroundColor: "var(--bg-secondary)" }}>
+        <footer className="transition-colors duration-300" style={{ borderTop: "1px solid var(--border-color)", backgroundColor: "var(--bg-secondary)" }}>
             <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
                     {/* Brand Column */}
                     <div className="col-span-2">
-                        <Link href="/" className="flex items-center gap-2 mb-4">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center text-white text-xs font-bold">
+                        <Link href="/" className="flex items-center gap-2 mb-4 group">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold transition-transform group-hover:scale-110" style={{ backgroundColor: "var(--color-violet-600, #7c3aed)" }}>
                                 C
                             </div>
                             <span className="text-base font-bold transition-colors" style={{ color: "var(--text-primary)" }}>
-                                Connectify<span className="text-accent-blue">.</span>
+                                Connectify<span style={{ color: "var(--color-violet-600, #7c3aed)" }}>.</span>
                             </span>
                         </Link>
                         <p className="text-sm leading-relaxed mb-5 max-w-[280px]" style={{ color: "var(--text-secondary)" }}>

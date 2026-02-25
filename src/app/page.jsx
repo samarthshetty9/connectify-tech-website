@@ -114,10 +114,10 @@ export default function HomePage() {
                     </motion.p>
 
                     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }} className="flex flex-col sm:flex-row gap-3 justify-center">
-                        <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-blue/20 transition-all duration-300">
+                        <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-white font-semibold text-sm hover:shadow-xl transition-all duration-300 shadow-md hover:-translate-y-0.5" style={{ backgroundColor: "var(--color-violet-600, #7c3aed)" }}>
                             Request a Demo <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
                         </Link>
-                        <Link href="/case-studies" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border-color)", color: "var(--text-primary)" }}>
+                        <Link href="/case-studies" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/5" style={{ backgroundColor: "transparent", border: "1px solid var(--border-color)", color: "var(--text-primary)" }}>
                             View Our Work
                         </Link>
                     </motion.div>
@@ -127,7 +127,7 @@ export default function HomePage() {
             </section>
 
             {/* ===== CLIENT LOGO MARQUEE ===== */}
-            <section className="py-6 overflow-hidden" style={{ borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)", backgroundColor: "var(--bg-secondary)" }}>
+            <section className="py-12 overflow-hidden" style={{ backgroundColor: "transparent" }}>
                 <div className="animate-logo-marquee">
                     {[...clientLogos, ...clientLogos, ...clientLogos].map((src, i) => (
                         <div key={i} className="flex items-center justify-center px-10 shrink-0 opacity-80 hover:opacity-100 transition-opacity">
@@ -306,22 +306,20 @@ export default function HomePage() {
             </section>
 
             {/* ===== CTA ===== */}
-            <section className="py-20 lg:py-28" style={{ backgroundColor: "var(--bg-secondary)" }}>
-                <div className="max-w-6xl mx-auto px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-2xl p-10 md:p-16 text-center" style={{ backgroundColor: "var(--bg-surface-strong)", border: "1px solid var(--border-color)", boxShadow: "var(--shadow-color)" }}>
-                        <div className="absolute top-0 right-1/4 w-[300px] h-[300px] rounded-full blur-[100px] pointer-events-none" style={{ backgroundColor: "var(--mesh-blue)" }} />
-                        <div className="absolute bottom-0 left-1/4 w-[200px] h-[200px] rounded-full blur-[80px] pointer-events-none" style={{ backgroundColor: "var(--mesh-purple)" }} />
-                        <div className="relative z-10">
-                            <h2 className="text-2xl md:text-4xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-                                Got ideas? We&apos;ve got the skills.<br />
-                                <span className="gradient-text">Let&apos;s team up.</span>
-                            </h2>
-                            <p className="text-sm md:text-base max-w-lg mx-auto mb-8" style={{ color: "var(--text-secondary)" }}>Tell us more about yourself and what you&apos;ve got in mind.</p>
-                            <Link href="/contact" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-blue/20 transition-all duration-300">
-                                Start a Conversation <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
-                            </Link>
-                        </div>
-                    </div>
+            <section className="py-24 border-t" style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)" }}>
+                <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+                    <FadeIn>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight" style={{ color: "var(--text-primary)" }}>
+                            Ready to transform your <br className="hidden md:block" />
+                            <span className="text-hero-blue">business</span>?
+                        </h2>
+                        <p className="text-base md:text-lg mb-10 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                            Join the innovative companies building the future with Connectify. Let's discuss your next big project.
+                        </p>
+                        <Link href="/contact" className="group inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1" style={{ backgroundColor: "var(--color-violet-600, #7c3aed)", color: "white" }}>
+                            Start a Conversation <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                    </FadeIn>
                 </div>
             </section>
         </div>
