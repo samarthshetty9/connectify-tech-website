@@ -96,7 +96,7 @@ export default function HomePage() {
                             </motion.h1>
 
                             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-base sm:text-lg md:text-xl max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-medium" style={{ color: "var(--text-secondary)" }}>
-                                Empowering businesses with next-gen technology solutions. From custom software to AI-driven platforms, we engineer your digital success.
+                                We partner with ambitious brands to build scalable digital products, robust infrastructure, and immersive experiences.
                             </motion.p>
 
                             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }} className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4">
