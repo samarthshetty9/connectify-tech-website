@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import { caseStudies, categories } from "@/data/caseStudies";
@@ -17,8 +18,17 @@ function FadeIn({ children, delay = 0, className = "" }) {
     );
 }
 
-export default function CaseStudiesPage() {
+function CaseStudiesContent() {
+    const searchParams = useSearchParams();
     const [filter, setFilter] = useState("All");
+
+    useEffect(() => {
+        const categoryParam = searchParams.get("category");
+        if (categoryParam && categories.includes(categoryParam)) {
+            setFilter(categoryParam);
+        }
+    }, [searchParams]);
+
     const filtered = filter === "All" ? caseStudies : caseStudies.filter((c) => c.category === filter);
 
     return (
@@ -87,5 +97,13 @@ export default function CaseStudiesPage() {
                 </div>
             </section>
         </div>
+    );
+}
+
+export default function CaseStudiesPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CaseStudiesContent />
+        </Suspense>
     );
 }

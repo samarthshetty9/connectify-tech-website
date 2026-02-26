@@ -80,9 +80,9 @@ export default function Navbar() {
             }}
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+                <div className="grid grid-cols-2 lg:grid-cols-3 items-center h-16">
+                    {/* Logo (Left aligned in grid) */}
+                    <Link href="/" className="flex items-center gap-2.5 group w-fit">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center font-bold text-white text-sm group-hover:scale-110 transition-transform duration-300">
                             C
                         </div>
@@ -91,8 +91,8 @@ export default function Navbar() {
                         </span>
                     </Link>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden lg:flex items-center gap-1">
+                    {/* Desktop Nav (Centered in grid) */}
+                    <nav className="hidden lg:flex items-center justify-center gap-1">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
                             if (link.hasMega) {
@@ -106,14 +106,22 @@ export default function Navbar() {
                                     >
                                         <Link
                                             href={link.href}
-                                            className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                                            className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group/nav relative"
                                             style={{
                                                 backgroundColor: isActive ? "var(--nav-active-bg)" : "transparent",
                                                 color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                                             }}
                                         >
-                                            {link.name}
-                                            <ChevronDown size={14} className={`transition-transform duration-200 ${megaOpen ? "rotate-180" : ""}`} />
+                                            <span className="relative z-10 flex items-center gap-1">
+                                                {link.name}
+                                                <ChevronDown size={14} className={`transition-transform duration-200 ${megaOpen ? "rotate-180" : ""}`} />
+                                            </span>
+                                            {!isActive && (
+                                                <span
+                                                    className="absolute bottom-1.5 left-4 right-4 h-[2px] rounded-full scale-x-0 group-hover/nav:scale-x-100 transition-transform origin-left duration-300"
+                                                    style={{ backgroundColor: "var(--color-accent-blue, #3b82f6)" }}
+                                                />
+                                            )}
                                         </Link>
 
                                         {/* Mega Menu */}
@@ -128,7 +136,7 @@ export default function Navbar() {
                                             onMouseLeave={handleMegaLeave}
                                         >
                                             <div className="h-0.5 bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan" />
-                                            <div className="p-6 grid grid-cols-3 gap-6">
+                                            <div className="p-6 grid grid-cols-3 gap-6 text-left">
                                                 {link.columns.map((col, ci) => (
                                                     <div key={ci}>
                                                         <h4 className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>{col.title}</h4>
@@ -166,20 +174,26 @@ export default function Navbar() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group/nav relative"
                                     style={{
                                         backgroundColor: isActive ? "var(--nav-active-bg)" : "transparent",
                                         color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                                     }}
                                 >
-                                    {link.name}
+                                    <span className="relative z-10">{link.name}</span>
+                                    {!isActive && (
+                                        <span
+                                            className="absolute bottom-1.5 left-4 right-4 h-[2px] rounded-full scale-x-0 group-hover/nav:scale-x-100 transition-transform origin-left duration-300"
+                                            style={{ backgroundColor: "var(--color-accent-blue, #3b82f6)" }}
+                                        />
+                                    )}
                                 </Link>
                             );
                         })}
                     </nav>
 
-                    {/* Right Side */}
-                    <div className="hidden lg:flex items-center gap-3">
+                    {/* Right Side (Right aligned in grid) */}
+                    <div className="hidden lg:flex items-center justify-end gap-3">
                         <Link
                             href="/contact"
                             className="text-sm font-medium transition-colors duration-300 hover:opacity-80"
@@ -199,12 +213,12 @@ export default function Navbar() {
                             className="px-5 py-2.5 rounded-lg text-white text-sm font-semibold hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-1.5"
                             style={{ backgroundColor: "var(--color-violet-600, #7c3aed)" }}
                         >
-                            Book Demo <ArrowRight size={14} />
+                            Get In Touch <ArrowRight size={14} />
                         </Link>
                     </div>
 
                     {/* Mobile Right */}
-                    <div className="flex lg:hidden items-center gap-2">
+                    <div className="flex lg:hidden items-center justify-end gap-2">
                         <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme" style={{ width: 32, height: 32, borderRadius: 8 }}>
                             {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
                         </button>
@@ -259,7 +273,7 @@ export default function Navbar() {
                                     className="block w-full text-center px-5 py-3 rounded-lg text-white text-sm font-semibold shadow-md transition-all duration-300"
                                     style={{ backgroundColor: "var(--color-violet-600, #7c3aed)" }}
                                 >
-                                    Book Demo
+                                    Get In Touch
                                 </Link>
                             </div>
                         </div>
