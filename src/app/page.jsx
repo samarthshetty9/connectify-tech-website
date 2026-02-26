@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -58,11 +58,41 @@ const domains = [
     { name: "Retail & E-Com", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop", count: "4+" },
 ];
 
-function FadeIn({ children, delay = 0, className = "" }) {
+function FadeIn({ children, delay = 0, direction = "up", scale = 1, className = "", distance = 40 }) {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-60px" });
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+    const directions = {
+        up: { y: distance },
+        down: { y: -distance },
+        left: { x: distance },
+        right: { x: -distance },
+        none: { x: 0, y: 0 }
+    };
+
     return (
-        <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay }} className={className}>
+        <motion.div
+            ref={ref}
+            initial={{
+                opacity: 0,
+                ...directions[direction],
+                scale: scale === 1 ? 1 : 0.8
+            }}
+            animate={isInView ? {
+                opacity: 1,
+                x: 0,
+                y: 0,
+                scale: 1
+            } : {}}
+            transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                delay: delay,
+                duration: 0.8
+            }}
+            className={className}
+        >
             {children}
         </motion.div>
     );
@@ -70,9 +100,19 @@ function FadeIn({ children, delay = 0, className = "" }) {
 
 export default function HomePage() {
     const featuredStudies = caseStudies.slice(0, 6);
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
+
+    const rotateX = useTransform(scrollYProgress, [0, 1], [0, 45]);
+    const rotateY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+    const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <div style={{ backgroundColor: "var(--bg-primary)", color: "var(--text-primary)" }}>
+        <div ref={containerRef} style={{ backgroundColor: "var(--bg-primary)", color: "var(--text-primary)" }}>
             {/* ===== HERO ===== */}
             <section className="relative min-h-[95vh] flex items-center overflow-hidden section-pattern pt-20">
                 <div className="absolute inset-0 pointer-events-none">
@@ -110,7 +150,13 @@ export default function HomePage() {
                         </div>
 
                         {/* Right side visual element - 3D Quantum Core */}
-                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} className="relative flex items-center justify-center h-full min-h-[280px] sm:min-h-[400px] lg:min-h-[500px] -mt-10 sm:mt-0">
+                        <motion.div
+                            style={{ opacity, scale }}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            className="relative flex items-center justify-center h-full min-h-[280px] sm:min-h-[400px] lg:min-h-[500px] -mt-10 sm:mt-0"
+                        >
                             <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center scale-[0.85] sm:scale-75 md:scale-90 lg:scale-100 origin-center">
 
                                 {/* Ambient Core Glow */}
@@ -120,30 +166,30 @@ export default function HomePage() {
                                 <div className="relative w-[300px] h-[300px] perspective-1000">
                                     {/* Outer Ring */}
                                     <motion.div
-                                        animate={{ rotateX: 360, rotateY: 360 }}
+                                        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                                        animate={{ rotateX: [360, 0], rotateY: [360, 0] }}
                                         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                                         className="absolute inset-0 rounded-full border-2 border-blue-500/20"
-                                        style={{ transformStyle: "preserve-3d" }}
                                     >
                                         <div className="absolute w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.8)] -top-2 left-1/2 -translate-x-1/2" />
                                     </motion.div>
 
                                     {/* Middle Ring */}
                                     <motion.div
-                                        animate={{ rotateX: -360, rotateZ: 360 }}
+                                        style={{ rotateX: rotateY, rotateZ: rotateX, transformStyle: "preserve-3d" }}
+                                        animate={{ rotateX: [-360, 0], rotateZ: [360, 0] }}
                                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                                         className="absolute inset-8 rounded-full border-2 border-purple-500/30 border-dashed"
-                                        style={{ transformStyle: "preserve-3d" }}
                                     >
                                         <div className="absolute w-3 h-3 rounded-full bg-purple-400 shadow-[0_0_15px_rgba(192,132,252,0.8)] top-1/2 -right-1.5 -translate-y-1/2" />
                                     </motion.div>
 
                                     {/* Inner Ring */}
                                     <motion.div
-                                        animate={{ rotateY: 360, rotateZ: -360 }}
+                                        style={{ rotateY: rotateX, rotateZ: rotateY, transformStyle: "preserve-3d" }}
+                                        animate={{ rotateY: [360, 0], rotateZ: [-360, 0] }}
                                         transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                                         className="absolute inset-16 rounded-full border border-cyan-500/40"
-                                        style={{ transformStyle: "preserve-3d" }}
                                     >
                                         <div className="absolute w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)] bottom-0 left-1/2 -translate-x-1/2" />
                                     </motion.div>
@@ -252,9 +298,15 @@ export default function HomePage() {
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12 md:mb-16">
-                        <span className="font-bold tracking-widest uppercase text-xs mb-4 block" style={{ color: "var(--color-accent-cyan)" }}>What We Do</span>
-                        <h2 className="text-3xl md:text-5xl font-black mb-4 md:mb-6" style={{ color: "var(--text-primary)" }}>Services We Provide to Elevate Your Business</h2>
-                        <p className="max-w-2xl mx-auto text-base md:text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>Empowering businesses with next-gen technology solutions. From custom software to AI-driven platforms, we engineer your digital success.</p>
+                        <FadeIn direction="down">
+                            <span className="font-bold tracking-widest uppercase text-xs mb-4 block" style={{ color: "var(--color-accent-cyan)" }}>What We Do</span>
+                        </FadeIn>
+                        <FadeIn delay={0.1}>
+                            <h2 className="text-3xl md:text-5xl font-black mb-4 md:mb-6" style={{ color: "var(--text-primary)" }}>Services We Provide to Elevate Your Business</h2>
+                        </FadeIn>
+                        <FadeIn delay={0.2}>
+                            <p className="max-w-2xl mx-auto text-base md:text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>Empowering businesses with next-gen technology solutions. From custom software to AI-driven platforms, we engineer your digital success.</p>
+                        </FadeIn>
                     </div>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 md:mt-16">
@@ -292,7 +344,7 @@ export default function HomePage() {
 
                         {/* Image Composition (Left) */}
                         <div className="relative isolate px-4 sm:px-0 max-w-[400px] sm:max-w-none mx-auto w-full">
-                            <FadeIn>
+                            <FadeIn direction="left" distance={60}>
                                 {/* Main large image */}
                                 <div className="relative rounded-[32px] overflow-hidden aspect-[4/5] sm:aspect-square w-[85%] sm:w-[80%] shadow-2xl mx-auto sm:mx-0">
                                     <Image src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop" alt="Team collaborating" fill className="object-cover" />
@@ -301,7 +353,7 @@ export default function HomePage() {
                             </FadeIn>
 
                             {/* Overlapping small image */}
-                            <FadeIn delay={0.2} className="absolute -bottom-6 -right-2 sm:-bottom-12 sm:-right-8 w-[60%] sm:w-[55%] aspect-square rounded-[24px] overflow-hidden shadow-2xl z-10" style={{ border: "8px solid var(--bg-secondary)" }}>
+                            <FadeIn delay={0.2} direction="right" distance={40} className="absolute -bottom-6 -right-2 sm:-bottom-12 sm:-right-8 w-[60%] sm:w-[55%] aspect-square rounded-[24px] overflow-hidden shadow-2xl z-10" style={{ border: "8px solid var(--bg-secondary)" }}>
                                 <Image src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop" alt="Business discussion" fill className="object-cover" />
                             </FadeIn>
 
@@ -316,8 +368,10 @@ export default function HomePage() {
 
                         {/* Text Content (Right) */}
                         <div className="mt-16 sm:mt-24 lg:mt-0 text-center sm:text-left">
-                            <SectionHeader label="About Connectify" title="We Strive To Offer Intelligent Business Solutions" centered={false} />
-                            <FadeIn delay={0.1}>
+                            <FadeIn direction="right">
+                                <SectionHeader label="About Connectify" title="We Strive To Offer Intelligent Business Solutions" centered={false} />
+                            </FadeIn>
+                            <FadeIn delay={0.2} direction="right">
                                 <p className="leading-relaxed mb-8 text-base sm:text-lg" style={{ color: "var(--text-secondary)" }}>
                                     We are a team of passionate engineers, designers, and strategists committed to transforming your visionary ideas into robust digital platforms. Our innovative approach ensures that every solution we craft is strictly aligned with your business objectives.
                                 </p>
@@ -359,8 +413,10 @@ export default function HomePage() {
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                         <div className="text-center sm:text-left">
-                            <SectionHeader label="Our Process" title="Transforming Ideas into Digital Reality" centered={false} />
-                            <FadeIn>
+                            <FadeIn direction="left">
+                                <SectionHeader label="Our Process" title="Transforming Ideas into Digital Reality" centered={false} />
+                            </FadeIn>
+                            <FadeIn delay={0.2} direction="left">
                                 <p className="leading-relaxed mb-6 text-base sm:text-lg" style={{ color: "var(--text-secondary)" }}>
                                     At Connectify, we don't just write code — our approach combines in-depth industry knowledge, innovative thinking, and a client-centric methodology.
                                 </p>
@@ -444,36 +500,46 @@ export default function HomePage() {
             </section >
 
             {/* ===== INDUSTRIES ===== */}
-            < section className="py-24 lg:py-32" style={{ backgroundColor: "var(--bg-primary)" }}>
+            <section className="py-24 lg:py-32" style={{ backgroundColor: "var(--bg-primary)" }}>
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                    <SectionHeader label="Industries" title="Domains We Empower" subtitle="Deep expertise across multiple sectors, building tailored solutions to meet unique business challenges and regulatory requirements." centered={true} />
+                    <FadeIn direction="up">
+                        <SectionHeader label="Industries" title="Domains We Empower" subtitle="Deep expertise across multiple sectors, building tailored solutions to meet unique business challenges and regulatory requirements." centered={true} />
+                    </FadeIn>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
                         {domains.map((d, i) => (
                             <FadeIn key={i} delay={i * 0.1}>
-                                <Link href={`/case-studies?category=${encodeURIComponent(d.name)}`} className="group block relative h-[380px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border-color)", boxShadow: "var(--shadow-md)" }}>
+                                <Link href={`/case-studies?category=${encodeURIComponent(d.name)}`} className="group block relative h-[420px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                                    {/* Image Background */}
+                                    <Image src={d.image} alt={d.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
 
-                                    {/* Image Top Half */}
-                                    <div className="absolute inset-x-0 top-0 h-[60%] overflow-hidden">
-                                        <Image src={d.image} alt={d.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent mix-blend-multiply opacity-50 group-hover:opacity-20 transition-opacity duration-500" />
-                                    </div>
+                                    {/* Gradient Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
-                                    {/* Content Bottom Half */}
-                                    <div className="absolute inset-x-0 bottom-0 h-[40%] p-6 sm:p-8 flex flex-col justify-center transition-transform duration-500 backdrop-blur-xl" style={{ backgroundColor: "var(--bg-surface-strong)", borderTop: "1px solid var(--border-color)" }}>
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                <h3 className="text-xl sm:text-2xl font-black mb-1.5 transition-colors group-hover:text-accent-blue" style={{ color: "var(--text-primary)" }}>{d.name}</h3>
-                                                <p className="text-sm font-semibold tracking-wide uppercase" style={{ color: "var(--text-muted)" }}>{d.count} Projects</p>
+                                    {/* Content Overlay */}
+                                    <div className="absolute inset-x-0 bottom-0 p-8 sm:p-10 flex flex-col justify-end h-full">
+                                        <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            <div className="flex items-center gap-3 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                                                <span className="h-0.5 w-8 bg-accent-blue rounded-full" />
+                                                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-blue">Expertise</span>
                                             </div>
 
-                                            {/* Action Button */}
-                                            <div className="w-12 h-12 rounded-full flex items-center justify-center transform group-hover:-rotate-45 transition-all duration-300 shadow-md group-hover:shadow-xl" style={{ backgroundColor: "var(--color-violet-600, #7c3aed)", color: "white" }}>
-                                                <ArrowRight size={20} strokeWidth={2.5} />
+                                            <h3 className="text-3xl sm:text-4xl font-black text-white mb-3 tracking-tight">{d.name}</h3>
+
+                                            <div className="flex items-center justify-between mt-2">
+                                                <p className="text-sm font-medium text-white/70 tracking-wide uppercase">{d.count} Successful Projects</p>
+
+                                                <div className="w-12 h-12 rounded-full flex items-center justify-center bg-black/20 backdrop-blur-md border border-white/10 transform group-hover:rotate-45 transition-all duration-500 group-hover:bg-blue-600 group-hover:border-blue-600">
+                                                    <ArrowRight size={20} className="text-white" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
+                                    {/* Corner Badge */}
+                                    <div className="absolute top-6 right-6 px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                        Case Studies
+                                    </div>
                                 </Link>
                             </FadeIn>
                         ))}
@@ -482,32 +548,52 @@ export default function HomePage() {
             </section >
 
             {/* ===== CASE STUDIES ===== */}
-            < section className="py-24 lg:py-32" style={{ backgroundColor: "var(--bg-secondary)" }}>
+            <section className="py-24 lg:py-32" style={{ backgroundColor: "var(--bg-primary)" }}>
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                    <SectionHeader label="Our Work" title="Real Impact. Proven Results." subtitle="Explore how we've helped startups and enterprises alike scale and innovate." centered={false} />
+                    <FadeIn direction="up">
+                        <SectionHeader label="Our Work" title="Real Impact. Proven Results." subtitle="Explore how we've helped startups and enterprises alike scale and innovate." centered={false} />
+                    </FadeIn>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         {featuredStudies.map((study, i) => (
                             <FadeIn key={study.slug} delay={i * 0.1}>
-                                <Link href={`/case-studies/${study.slug}`} className="rounded-2xl overflow-hidden group transition-all duration-300 block hover:-translate-y-2" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border-color)", boxShadow: "var(--shadow-md)" }}>
-                                    <div className={`h-48 bg-gradient-to-br ${study.color} opacity-90 flex items-center justify-center relative`}>
-                                        <span className="text-white/90 text-6xl font-black tracking-tighter mix-blend-overlay">{study.title.charAt(0)}</span>
-                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-                                    </div>
+                                <Link href={`/case-studies/${study.slug}`} className="group relative rounded-3xl overflow-hidden transition-all duration-500 block hover:-translate-y-2 h-full border" style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-color)", boxShadow: "var(--shadow-card)" }}>
+
                                     <div className="p-8">
-                                        <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-4 tracking-wider uppercase" style={{ backgroundColor: "var(--selection-bg)", color: "var(--color-accent-blue)" }}>{study.category}</span>
-                                        <h3 className="text-xl font-bold mb-3 transition-colors group-hover:text-accent-blue" style={{ color: "var(--text-primary)" }}>{study.title}</h3>
-                                        <p className="text-sm leading-relaxed line-clamp-2" style={{ color: "var(--text-secondary)" }}>{study.shortDescription}</p>
+                                        <div className="flex items-center justify-between mb-8">
+                                            <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl font-black shadow-[0_5px_20px_rgba(0,0,0,0.05)] dark:shadow-none group-hover:scale-110 transition-all duration-500 bg-white dark:bg-white/10" style={{ color: "var(--text-primary)" }}>
+                                                {study.title.charAt(0)}
+                                            </div>
+                                            <span className="px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:bg-accent-blue group-hover:text-white group-hover:border-accent-blue border border-transparent">
+                                                {study.category}
+                                            </span>
+                                        </div>
+
+                                        <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-accent-blue transition-colors duration-300" style={{ color: "var(--text-primary)" }}>{study.title}</h3>
+                                        <p className="text-sm leading-relaxed mb-10 line-clamp-3 font-medium opacity-70" style={{ color: "var(--text-secondary)" }}>{study.shortDescription}</p>
+
+                                        <div className="pt-6 border-t border-slate-100/10 dark:border-white/5 flex items-center justify-between group-hover:border-blue-500/20 transition-colors">
+                                            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 inline-flex items-center gap-2">
+                                                Case Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                            </span>
+                                            <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 group-hover:bg-blue-600/5 dark:group-hover:bg-blue-600/20 transition-colors">
+                                                <Layers size={18} className="text-slate-300 dark:text-slate-600 group-hover:text-blue-600" />
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    {/* Hover Shine Effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue/0 to-accent-blue/0 group-hover:from-accent-blue/[0.02] group-hover:to-accent-blue/0 pointer-events-none transition-all duration-700" />
                                 </Link>
                             </FadeIn>
                         ))}
                     </div>
-                    <FadeIn className="text-center mt-14">
-                        <Link href="/case-studies" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1" style={{ backgroundColor: "var(--bg-primary)", border: "2px solid var(--border-color)", color: "var(--text-primary)" }}>
-                            View All Case Studies <ArrowRight size={16} />
+
+                    <div className="mt-16 text-center">
+                        <Link href="/case-studies" className="inline-flex items-center gap-3 group px-10 py-4 rounded-full font-black text-sm uppercase tracking-widest bg-black text-white hover:bg-zinc-900 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                            Explore Projects <ArrowRight size={20} className="group-hover:translate-x-1.5 transition-transform" />
                         </Link>
-                    </FadeIn>
+                    </div>
                 </div>
             </section >
 
@@ -524,9 +610,11 @@ export default function HomePage() {
                             Ready to transform your <br className="hidden md:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-purple">business operations?</span>
                         </h2>
-                        <p className="text-base md:text-xl mb-10 md:mb-12 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                            Join the innovative companies building the future with Connectify. Schedule a free consultation to discuss your next big project.
-                        </p>
+                        <FadeIn delay={0.2}>
+                            <p className="text-base md:text-xl mb-10 md:mb-12 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                                Join the innovative companies building the future with Connectify. Schedule a free consultation to discuss your next big project.
+                            </p>
+                        </FadeIn>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
                             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-8 py-4 md:px-10 md:py-5 rounded-full font-bold text-sm md:text-base transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1" style={{ backgroundColor: "var(--color-violet-600, #7c3aed)", color: "white" }}>
                                 Start a Conversation <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
