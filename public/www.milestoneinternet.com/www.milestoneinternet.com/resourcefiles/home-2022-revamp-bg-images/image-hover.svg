@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="368" height="338" viewBox="0 0 368 338">
-  <defs>
-    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-      <stop offset="0"/>
-      <stop offset="1" stop-color="#545454" stop-opacity="0.502"/>
-    </radialGradient>
-  </defs>
-  <path id="Rectangle_173" data-name="Rectangle 173" d="M22,0H346a22,22,0,0,1,22,22V316a22,22,0,0,1-22,22H22A22,22,0,0,1,0,316V22A22,22,0,0,1,22,0Z" opacity="0.6" fill="url(#radial-gradient)"/>
-</svg>
