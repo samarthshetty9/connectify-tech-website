@@ -163,7 +163,7 @@ export default function HomePage() {
                                 <motion.div
                                     animate={{ y: [0, -10, 0] }}
                                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute -top-4 -left-4 md:-left-12 z-20 p-4 rounded-2xl backdrop-blur-xl border border-blue-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
+                                    className="absolute top-0 -left-6 md:-left-12 z-20 p-4 rounded-2xl backdrop-blur-xl border border-blue-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
                                     style={{ backgroundColor: "var(--glass-bg)" }}
                                 >
                                     <div className="bg-blue-500/20 p-2.5 rounded-xl"><Activity size={20} className="text-blue-400" /></div>
@@ -177,7 +177,7 @@ export default function HomePage() {
                                 <motion.div
                                     animate={{ y: [0, -15, 0] }}
                                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                    className="absolute bottom-0 sm:-bottom-10 left-4 lg:left-10 z-20 p-4 rounded-2xl backdrop-blur-xl border border-purple-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
+                                    className="absolute bottom-0 -left-6 md:left-4 lg:left-10 z-20 p-4 rounded-2xl backdrop-blur-xl border border-purple-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
                                     style={{ backgroundColor: "var(--glass-bg)" }}
                                 >
                                     <div className="bg-purple-500/20 p-2.5 rounded-xl"><Shield size={24} className="text-purple-400" /></div>
@@ -193,7 +193,7 @@ export default function HomePage() {
                                 <motion.div
                                     animate={{ y: [0, -8, 0] }}
                                     transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                                    className="absolute top-10 -right-2 md:-right-12 z-20 p-4 rounded-2xl backdrop-blur-xl border border-cyan-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
+                                    className="absolute top-0 -right-6 md:-right-12 z-20 p-4 rounded-2xl backdrop-blur-xl border border-cyan-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
                                     style={{ backgroundColor: "var(--glass-bg)" }}
                                 >
                                     <div className="bg-cyan-500/20 p-2.5 rounded-xl"><Database size={20} className="text-cyan-400" /></div>
@@ -207,7 +207,7 @@ export default function HomePage() {
                                 <motion.div
                                     animate={{ y: [0, 15, 0] }}
                                     transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                                    className="absolute bottom-10 -right-4 md:-right-8 z-20 p-3 pr-5 rounded-2xl backdrop-blur-xl border border-emerald-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
+                                    className="absolute bottom-0 -right-6 sm:-right-4 md:-right-8 z-20 p-3 pr-5 rounded-2xl backdrop-blur-xl border border-emerald-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
                                     style={{ backgroundColor: "var(--glass-bg)" }}
                                 >
                                     <div className="bg-emerald-500/20 p-2.5 rounded-xl"><CheckCircle size={20} className="text-emerald-400" /></div>
