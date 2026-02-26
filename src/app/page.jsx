@@ -110,8 +110,8 @@ export default function HomePage() {
                         </div>
 
                         {/* Right side visual element - 3D Quantum Core */}
-                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} className="relative flex items-center justify-center h-full min-h-[300px] sm:min-h-[400px] lg:min-h-[500px] mt-8 lg:mt-0">
-                            <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center scale-[0.55] sm:scale-75 md:scale-90 lg:scale-100 origin-center">
+                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} className="relative flex items-center justify-center h-full min-h-[280px] sm:min-h-[400px] lg:min-h-[500px] mt-2 lg:mt-0">
+                            <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center scale-[0.85] sm:scale-75 md:scale-90 lg:scale-100 origin-center">
 
                                 {/* Ambient Core Glow */}
                                 <div className="absolute inset-x-10 inset-y-10 bg-gradient-to-tr from-blue-500/30 via-purple-500/20 to-cyan-500/30 blur-[80px] rounded-full mix-blend-screen" />
