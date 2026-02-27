@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -50,13 +50,111 @@ const platformSolutions = [
 ];
 
 const domains = [
-    { name: "Fintech", image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop", count: "10+" },
-    { name: "Edtech", image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop", count: "3+" },
-    { name: "Healthtech", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop", count: "2+" },
-    { name: "Mobility", image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800&auto=format&fit=crop", count: "3+" },
-    { name: "Enterprise", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop", count: "5+" },
-    { name: "Retail & E-Com", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop", count: "4+" },
+    { name: "Fintech", image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2400&auto=format&fit=crop", count: "10+" },
+    { name: "Edtech", image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2400&auto=format&fit=crop", count: "3+" },
+    { name: "Healthtech", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2400&auto=format&fit=crop", count: "2+" },
+    { name: "Mobility", image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2400&auto=format&fit=crop", count: "3+" },
+    { name: "Enterprise", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2400&auto=format&fit=crop", count: "5+" },
+    { name: "Retail & E-Com", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2400&auto=format&fit=crop", count: "4+" },
 ];
+
+const getTechIcon = (tech) => {
+    const slugMap = {
+        "React": "react/react-original",
+        "React Native": "react/react-original",
+        "Node.js": "nodejs/nodejs-original",
+        "Python": "python/python-original",
+        "TensorFlow": "tensorflow/tensorflow-original",
+        "Firebase": "firebase/firebase-original",
+        "AWS": "amazonwebservices/amazonwebservices-original-wordmark",
+        "Flutter": "flutter/flutter-original",
+        "Google Cloud": "googlecloud/googlecloud-original",
+        "MongoDB": "mongodb/mongodb-original",
+        "Redis": "redis/redis-original",
+        "PostgreSQL": "postgresql/postgresql-original",
+        "FastAPI": "fastapi/fastapi-original",
+        "Elasticsearch": "elasticsearch/elasticsearch-original",
+        "Java": "java/java-original",
+        "Spring Boot": "spring/spring-original",
+        "Docker": "docker/docker-original",
+        "Next.js": "nextjs/nextjs-original",
+        "GraphQL": "graphql/graphql-plain",
+        "Kubernetes": "kubernetes/kubernetes-plain",
+    };
+
+    const slug = slugMap[tech];
+    return slug ? `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}.svg` : null;
+};
+
+// Extracted Component for Individual Tech Stack State
+function CaseStudyCard({ study, delay }) {
+    const [showAllTech, setShowAllTech] = useState(false);
+    const displayedTech = showAllTech ? study.techStack : study.techStack?.slice(0, 3);
+    const hiddenCount = study.techStack?.length - 3;
+
+    return (
+        <FadeIn delay={delay}>
+            <Link href={`/case-studies/${study.slug}`} className="group relative rounded-3xl overflow-hidden transition-all duration-500 block hover:-translate-y-2 h-full border flex flex-col" style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-color)", boxShadow: "var(--shadow-card)" }}>
+                <div className="p-8 flex-grow flex flex-col">
+                    <div className="flex items-center justify-between mb-8">
+                        <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl font-black shadow-[0_5px_20px_rgba(0,0,0,0.05)] dark:shadow-none group-hover:scale-110 transition-all duration-500 bg-white dark:bg-white/10" style={{ color: "var(--text-primary)" }}>
+                            {study.title.charAt(0)}
+                        </div>
+                        <span className="px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:bg-accent-violet group-hover:text-white group-hover:border-accent-violet border border-transparent">
+                            {study.category}
+                        </span>
+                    </div>
+
+                    <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-accent-violet transition-colors duration-300" style={{ color: "var(--text-primary)" }}>{study.title}</h3>
+                    <p className="text-sm leading-relaxed mb-6 line-clamp-3 font-medium opacity-70 flex-grow" style={{ color: "var(--text-secondary)" }}>{study.shortDescription}</p>
+
+                    {/* Tech Stack Pills w/ Interactive Expansion */}
+                    <motion.div className="flex flex-wrap gap-2 mb-8" layout>
+                        {displayedTech?.map((tech, idx) => {
+                            const iconUrl = getTechIcon(tech);
+                            return (
+                                <span key={idx} className="px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase border outline-offset-1 transition-colors duration-300 group-hover:border-accent-violet/30 group-hover:bg-accent-violet/5 flex items-center gap-1.5" style={{ color: "var(--text-primary)", backgroundColor: "var(--bg-surface)", borderColor: "var(--border-color)" }}>
+                                    {iconUrl && (
+                                        <div className="relative w-3.5 h-3.5 flex items-center justify-center">
+                                            {/* White background layer to ensure dark logos are visible in dark mode */}
+                                            {tech === "Next.js" && <div className="absolute inset-0 bg-white rounded-full"></div>}
+                                            <Image src={iconUrl} alt={tech} width={14} height={14} className="relative z-10" />
+                                        </div>
+                                    )}
+                                    {tech}
+                                </span>
+                            );
+                        })}
+                        {!showAllTech && hiddenCount > 0 && (
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault(); // Prevent navigating to the Link
+                                    setShowAllTech(true);
+                                }}
+                                className="px-2.5 py-1.5 rounded-full text-[10px] font-bold tracking-wider border transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/10 flex flex-col items-center justify-center"
+                                style={{ color: "var(--text-secondary)", borderColor: "var(--border-color)" }}
+                            >
+                                +{hiddenCount}
+                            </button>
+                        )}
+                    </motion.div>
+
+                    <div className="pt-6 border-t border-slate-100/10 dark:border-white/5 flex items-center justify-between group-hover:border-violet-500/20 transition-colors">
+                        <span className="text-xs font-bold uppercase tracking-widest text-violet-600 dark:text-violet-400 inline-flex items-center gap-2">
+                            Case Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                        <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 group-hover:bg-violet-600/5 dark:group-hover:bg-violet-600/20 transition-colors">
+                            <Layers size={18} className="text-slate-300 dark:text-slate-600 group-hover:text-violet-600" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Hover Shine Effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-accent-violet/0 to-accent-violet/0 group-hover:from-accent-violet/[0.02] group-hover:to-accent-violet/0 pointer-events-none transition-all duration-700" />
+            </Link>
+        </FadeIn>
+    );
+}
 
 function FadeIn({ children, delay = 0, direction = "up", scale = 1, className = "", distance = 40 }) {
     const ref = useRef(null);
@@ -102,6 +200,37 @@ export default function HomePage() {
     const featuredStudies = caseStudies.slice(0, 6);
     const containerRef = useRef(null);
     const [hoveredDomain, setHoveredDomain] = useState(null);
+
+    // Add state for tracking button hover in CTA section
+    const [isHoveringCTA, setIsHoveringCTA] = useState(false);
+
+    // Mobile scroll-based interaction for Domains section
+    useEffect(() => {
+        const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+        if (!isTouchDevice) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const idx = Number(entry.target.getAttribute("data-index"));
+                        setHoveredDomain(idx);
+                    }
+                });
+            },
+            {
+                rootMargin: "-45% 0px -45% 0px", // Trigger when the item is strictly in the center 10% of viewport
+                threshold: 0,
+            }
+        );
+
+        const elements = document.querySelectorAll(".domain-row-trigger");
+        elements.forEach((el) => observer.observe(el));
+
+        return () => {
+            elements.forEach((el) => observer.unobserve(el));
+        };
+    }, []);
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -546,9 +675,10 @@ export default function HomePage() {
                             <FadeIn key={i} delay={i * 0.1} className="w-full">
                                 <Link
                                     href={`/case-studies?category=${encodeURIComponent(d.name)}`}
+                                    data-index={i}
                                     onMouseEnter={() => setHoveredDomain(i)}
                                     onMouseLeave={() => setHoveredDomain(null)}
-                                    className="group flex flex-col md:flex-row md:items-center justify-between py-10 md:py-16 border-b transition-colors duration-500 overflow-hidden relative"
+                                    className="domain-row-trigger group flex flex-col md:flex-row md:items-center justify-between py-10 md:py-16 border-b transition-colors duration-500 overflow-hidden relative"
                                     style={{ borderColor: hoveredDomain !== null ? "rgba(255,255,255,0.1)" : "var(--border-color)" }}
                                 >
                                     {/* Hover Background Accent Glow - Enhanced for dark bg */}
@@ -596,50 +726,7 @@ export default function HomePage() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         {featuredStudies.map((study, i) => (
-                            <FadeIn key={study.slug} delay={i * 0.1}>
-                                <Link href={`/case-studies/${study.slug}`} className="group relative rounded-3xl overflow-hidden transition-all duration-500 block hover:-translate-y-2 h-full border" style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-color)", boxShadow: "var(--shadow-card)" }}>
-
-                                    <div className="p-8">
-                                        <div className="flex items-center justify-between mb-8">
-                                            <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl font-black shadow-[0_5px_20px_rgba(0,0,0,0.05)] dark:shadow-none group-hover:scale-110 transition-all duration-500 bg-white dark:bg-white/10" style={{ color: "var(--text-primary)" }}>
-                                                {study.title.charAt(0)}
-                                            </div>
-                                            <span className="px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:bg-accent-violet group-hover:text-white group-hover:border-accent-violet border border-transparent">
-                                                {study.category}
-                                            </span>
-                                        </div>
-
-                                        <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-accent-violet transition-colors duration-300" style={{ color: "var(--text-primary)" }}>{study.title}</h3>
-                                        <p className="text-sm leading-relaxed mb-6 line-clamp-3 font-medium opacity-70" style={{ color: "var(--text-secondary)" }}>{study.shortDescription}</p>
-
-                                        {/* Tech Stack Pills */}
-                                        <div className="flex flex-wrap gap-2 mb-8">
-                                            {study.techStack?.slice(0, 3).map((tech, idx) => (
-                                                <span key={idx} className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border transition-colors duration-300 group-hover:border-accent-violet/30 group-hover:bg-accent-violet/5" style={{ color: "var(--text-primary)", backgroundColor: "var(--bg-surface)", borderColor: "var(--border-color)" }}>
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                            {study.techStack?.length > 3 && (
-                                                <span className="px-2 py-1 rounded-full text-[10px] font-bold tracking-wider border border-transparent" style={{ color: "var(--text-secondary)" }}>
-                                                    +{study.techStack.length - 3}
-                                                </span>
-                                            )}
-                                        </div>
-
-                                        <div className="pt-6 border-t border-slate-100/10 dark:border-white/5 flex items-center justify-between group-hover:border-violet-500/20 transition-colors">
-                                            <span className="text-xs font-bold uppercase tracking-widest text-violet-600 dark:text-violet-400 inline-flex items-center gap-2">
-                                                Case Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                                            </span>
-                                            <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 group-hover:bg-violet-600/5 dark:group-hover:bg-violet-600/20 transition-colors">
-                                                <Layers size={18} className="text-slate-300 dark:text-slate-600 group-hover:text-violet-600" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Hover Shine Effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-accent-violet/0 to-accent-violet/0 group-hover:from-accent-violet/[0.02] group-hover:to-accent-violet/0 pointer-events-none transition-all duration-700" />
-                                </Link>
-                            </FadeIn>
+                            <CaseStudyCard key={study.slug} study={study} delay={i * 0.1} />
                         ))}
                     </div>
 
@@ -651,71 +738,190 @@ export default function HomePage() {
                 </div>
             </section >
 
-            {/* ===== NEWSLETTER CTA (Lightweight Inspired) ===== */}
-            <section className="relative py-24 md:py-36 overflow-hidden mx-4 sm:mx-6 lg:mx-8 mb-24 rounded-3xl" style={{ backgroundColor: '#0a0a0a', border: '8px solid color-mix(in srgb, var(--border-color) 40%, transparent)' }}>
-                {/* Background Image */}
-                <Image
-                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
-                    alt="Newsletter Background"
-                    fill
-                    className="object-cover opacity-40 mix-blend-luminosity grayscale"
-                    unoptimized
-                />
+            {/* ===== CTA SECTION (Harry Solaris Inspired) ===== */}
+            <section
+                className="relative py-20 md:py-32 overflow-hidden w-full group cursor-none bg-slate-50 dark:bg-[#0c0a09]"
+                onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
 
-                {/* Deep Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a] opacity-80" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a] opacity-80" />
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    e.currentTarget.style.setProperty('--parallax-x', `${(x - centerX)}px`);
+                    e.currentTarget.style.setProperty('--parallax-y', `${(y - centerY)}px`);
+                }}
+            >
+                {/* Base Grid - Dark Mode */}
+                <div className="absolute inset-0 pointer-events-none hidden dark:block" style={{
+                    backgroundImage: `
+                        linear-gradient(rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(124, 58, 237, 0.08) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '80px 80px',
+                    transform: 'translate(calc(var(--parallax-x, 0px) * -0.02), calc(var(--parallax-y, 0px) * -0.02)) scale(1.05)'
+                }} />
+                {/* Base Grid - Light Mode */}
+                <div className="absolute inset-0 pointer-events-none block dark:hidden" style={{
+                    backgroundImage: `
+                        linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '80px 80px',
+                    transform: 'translate(calc(var(--parallax-x, 0px) * -0.02), calc(var(--parallax-y, 0px) * -0.02)) scale(1.05)'
+                }} />
 
-                {/* Grid / Crosshair Accents */}
-                <div className="absolute top-8 left-8 text-white/20">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
-                </div>
-                <div className="absolute top-8 right-8 text-white/20">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
-                </div>
-                <div className="absolute bottom-8 left-8 text-white/20">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
-                </div>
-                <div className="absolute bottom-8 right-8 text-white/20">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
+                {/* Illuminated Bright Grid - Dark Mode */}
+                <div className="absolute inset-0 transition-transform duration-1000 ease-out pointer-events-none hidden dark:block" style={{
+                    backgroundImage: `
+                        linear-gradient(rgba(196, 181, 253, 0.9) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(196, 181, 253, 0.9) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '80px 80px',
+                    transform: 'translate(calc(var(--parallax-x, 0px) * -0.02), calc(var(--parallax-y, 0px) * -0.02)) scale(1.05)',
+                    maskImage: 'radial-gradient(circle 1000px at calc(var(--mouse-x, 80vw)) calc(var(--mouse-y, 35vh)), black 0%, rgba(0,0,0,0.6) 30%, transparent 80%)',
+                    WebkitMaskImage: 'radial-gradient(circle 1000px at calc(var(--mouse-x, 80vw)) calc(var(--mouse-y, 35vh)), black 0%, rgba(0,0,0,0.6) 30%, transparent 80%)'
+                }} />
+                {/* Illuminated Bright Grid - Light Mode */}
+                <div className="absolute inset-0 transition-transform duration-1000 ease-out pointer-events-none block dark:hidden" style={{
+                    backgroundImage: `
+                        linear-gradient(rgba(139, 92, 246, 0.5) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(139, 92, 246, 0.5) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '80px 80px',
+                    transform: 'translate(calc(var(--parallax-x, 0px) * -0.02), calc(var(--parallax-y, 0px) * -0.02)) scale(1.05)',
+                    maskImage: 'radial-gradient(circle 1000px at calc(var(--mouse-x, 80vw)) calc(var(--mouse-y, 35vh)), black 0%, rgba(0,0,0,0.4) 30%, transparent 80%)',
+                    WebkitMaskImage: 'radial-gradient(circle 1000px at calc(var(--mouse-x, 80vw)) calc(var(--mouse-y, 35vh)), black 0%, rgba(0,0,0,0.4) 30%, transparent 80%)'
+                }} />
+
+                {/* Ambient vignette wash */}
+                <div className="absolute inset-0 hidden dark:block" style={{
+                    background: 'radial-gradient(ellipse 80% 60% at 75% 45%, rgba(124, 58, 237, 0.1) 0%, transparent 70%)',
+                }} />
+                <div className="absolute inset-0 block dark:hidden" style={{
+                    background: 'radial-gradient(ellipse 80% 60% at 75% 45%, rgba(139, 92, 246, 0.05) 0%, transparent 70%)',
+                }} />
+
+                {/* === TORCH FLARE - Primary (Dark Mode) === */}
+                <div className="absolute top-0 left-0 z-30 pointer-events-none transition-all duration-[800ms] ease-out hidden dark:flex items-center justify-center flex-col" style={{
+                    width: '1200px', height: '1200px',
+                    transform: 'translate(calc(var(--mouse-x, 80vw) - 600px), calc(var(--mouse-y, 35vh) - 600px))'
+                }}>
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out group-hover:opacity-100 ${isHoveringCTA ? 'opacity-90 w-[300px] h-[300px]' : 'opacity-60 w-[800px] h-[800px]'}`} style={{
+                        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(124, 58, 237, 0.05) 50%, transparent 70%)',
+                    }} />
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out group-hover:opacity-100 ${isHoveringCTA ? 'opacity-100 w-48 h-48' : 'opacity-80 w-80 h-80'}`} style={{
+                        background: 'radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, rgba(139, 92, 246, 0.15) 40%, transparent 70%)',
+                    }} />
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out ${isHoveringCTA ? 'w-24 h-24' : 'w-48 h-48'}`} style={{
+                        background: 'radial-gradient(circle, rgba(196, 181, 253, 0.7) 0%, rgba(139, 92, 246, 0.3) 40%, transparent 70%)',
+                    }} />
+                    <div className={`absolute flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out ${isHoveringCTA ? 'w-10 h-10 bg-white/90 shadow-[0_0_15px_rgba(255,255,255,0.8)]' : 'w-16 h-16'}`} style={{
+                        background: isHoveringCTA ? '' : 'radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(221, 214, 254, 0.9) 20%, rgba(167, 139, 250, 0.6) 60%, transparent 100%)',
+                    }}>
+                        <svg className={`w-[18px] h-[18px] text-violet-600 transition-all duration-500 transform ${isHoveringCTA ? 'opacity-100 scale-100' : 'opacity-0 scale-50 -translate-x-2 translate-y-2'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </div>
+
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full transition-opacity duration-500 pointer-events-none ${isHoveringCTA ? 'opacity-0' : 'opacity-100'}`}>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: '900px', height: '2px', background: 'linear-gradient(90deg, transparent 0%, rgba(167, 139, 250, 0.2) 20%, rgba(196, 181, 253, 0.7) 45%, rgba(255, 255, 255, 0.95) 50%, rgba(196, 181, 253, 0.7) 55%, rgba(167, 139, 250, 0.2) 80%, transparent 100%)' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[60deg]" style={{ width: '600px', height: '1.5px', background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.2) 25%, rgba(221, 214, 254, 0.6) 50%, rgba(139, 92, 246, 0.2) 75%, transparent 100%)' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-60deg]" style={{ width: '600px', height: '1.5px', background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.2) 25%, rgba(221, 214, 254, 0.6) 50%, rgba(139, 92, 246, 0.2) 75%, transparent 100%)' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90" style={{ width: '450px', height: '1px', background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.15) 25%, rgba(196, 181, 253, 0.5) 50%, rgba(139, 92, 246, 0.15) 75%, transparent 100%)' }} />
+                    </div>
                 </div>
 
-                {/* Concentric Circles (Subtle) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/5 pointer-events-none" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full border border-white/5 pointer-events-none" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[1400px] rounded-full border border-white/5 pointer-events-none" />
+                {/* === TORCH FLARE - Primary (Light Mode) === */}
+                <div className="absolute top-0 left-0 z-30 pointer-events-none transition-all duration-[800ms] ease-out flex dark:hidden items-center justify-center flex-col" style={{
+                    width: '1200px', height: '1200px',
+                    transform: 'translate(calc(var(--mouse-x, 80vw) - 600px), calc(var(--mouse-y, 35vh) - 600px))'
+                }}>
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out group-hover:opacity-100 ${isHoveringCTA ? 'opacity-80 w-[300px] h-[300px]' : 'opacity-50 w-[800px] h-[800px]'}`} style={{
+                        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(124, 58, 237, 0.03) 50%, transparent 70%)',
+                    }} />
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out group-hover:opacity-100 ${isHoveringCTA ? 'opacity-90 w-48 h-48' : 'opacity-70 w-80 h-80'}`} style={{
+                        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%)',
+                    }} />
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out ${isHoveringCTA ? 'w-24 h-24' : 'w-48 h-48'}`} style={{
+                        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.5) 0%, rgba(139, 92, 246, 0.2) 40%, transparent 70%)',
+                    }} />
+                    <div className={`absolute flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-700 ease-out ${isHoveringCTA ? 'w-10 h-10 bg-violet-600 shadow-[0_0_15px_rgba(124,58,237,0.4)]' : 'w-16 h-16'}`} style={{
+                        background: isHoveringCTA ? '' : 'radial-gradient(circle, rgba(124, 58, 237, 0.9) 0%, rgba(139, 92, 246, 0.8) 20%, rgba(167, 139, 250, 0.5) 60%, transparent 100%)',
+                    }}>
+                        <svg className={`w-[18px] h-[18px] text-white transition-all duration-500 transform ${isHoveringCTA ? 'opacity-100 scale-100' : 'opacity-0 scale-50 -translate-x-2 translate-y-2'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </div>
 
+                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full transition-opacity duration-500 pointer-events-none ${isHoveringCTA ? 'opacity-0' : 'opacity-100'}`}>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: '900px', height: '2px', background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.1) 20%, rgba(139, 92, 246, 0.4) 45%, rgba(124, 58, 237, 0.8) 50%, rgba(139, 92, 246, 0.4) 55%, rgba(139, 92, 246, 0.1) 80%, transparent 100%)' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[60deg]" style={{ width: '600px', height: '1.5px', background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.1) 25%, rgba(139, 92, 246, 0.3) 50%, rgba(139, 92, 246, 0.1) 75%, transparent 100%)' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-60deg]" style={{ width: '600px', height: '1.5px', background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.1) 25%, rgba(139, 92, 246, 0.3) 50%, rgba(139, 92, 246, 0.1) 75%, transparent 100%)' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90" style={{ width: '450px', height: '1px', background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.05) 25%, rgba(139, 92, 246, 0.2) 50%, rgba(139, 92, 246, 0.05) 75%, transparent 100%)' }} />
+                    </div>
+                </div>
+
+                {/* === TORCH FLARE - Secondary (dimmer, parallax moving opposite to cursor) === */}
+                <div className="absolute pointer-events-none opacity-50 transition-transform duration-1000 ease-out" style={{
+                    bottom: '15%', left: '10%', width: '400px', height: '400px',
+                    transform: 'translate(calc(var(--parallax-x, 0px) * -0.05), calc(var(--parallax-y, 0px) * -0.05))'
+                }}>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full" style={{
+                        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%)',
+                    }} />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full" style={{
+                        background: 'radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, rgba(124, 58, 237, 0.15) 50%, transparent 80%)',
+                    }} />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full" style={{
+                        background: 'radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(196, 181, 253, 0.6) 50%, transparent 100%)',
+                    }} />
+                    {/* Cross rays */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{
+                        width: '400px', height: '1.5px',
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(167, 139, 250, 0.2) 30%, rgba(196, 181, 253, 0.6) 50%, rgba(167, 139, 250, 0.2) 70%, transparent 100%)',
+                    }} />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90" style={{
+                        width: '300px', height: '1.5px',
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(167, 139, 250, 0.15) 30%, rgba(196, 181, 253, 0.4) 50%, rgba(167, 139, 250, 0.15) 70%, transparent 100%)',
+                    }} />
+                </div>
+
+                {/* Edge vignette */}
+                <div className="absolute inset-0 hidden dark:block" style={{
+                    background: 'radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, #0c0a09 85%)',
+                }} />
+                <div className="absolute inset-0 block dark:hidden" style={{
+                    background: 'radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, #f8fafc 90%)',
+                }} />
+
+                {/* Content */}
                 <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
                     <FadeIn direction="up">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-4 tracking-tight text-white uppercase leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
-                            Tell us about <br className="hidden sm:block" /> your project
+
+                        <h2 className="text-4xl md:text-[3.5rem] lg:text-[4.2rem] font-light mb-6 text-slate-900 dark:text-white leading-[1.15] tracking-[-0.01em]" style={{ fontFamily: 'Georgia, "Times New Roman", Times, serif' }}>
+                            Got a Brilliant Idea?<br />
+                            Let&apos;s Build it Together!
                         </h2>
-                        <p className="text-sm md:text-base font-medium mb-12 text-white/80">
-                            Drop your email below and our strategic team will reach out.
+
+                        <p className="text-[15px] md:text-base font-normal mb-14 text-slate-600 dark:text-white/50 max-w-md mx-auto leading-relaxed">
+                            Turn vision into reality. Leverage our expertise to build innovative solutions that scale.
                         </p>
 
-                        <form className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8" onSubmit={(e) => e.preventDefault()}>
-                            <div className="relative w-full sm:w-[400px]">
-                                <input
-                                    type="email"
-                                    placeholder="Your email*"
-                                    className="w-full h-14 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-6 text-white placeholder-white/50 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all duration-300 shadow-inner"
-                                    required
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="h-14 px-10 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:bg-gray-200 transition-colors duration-300 w-full sm:w-auto flex-shrink-0"
+                        {/* Single CTA Button */}
+                        <div className="flex flex-col items-center justify-center relative z-20">
+                            <a
+                                href="mailto:hello@connectifytech.com"
+                                className="cursor-none h-[52px] px-10 rounded-full bg-violet-600 text-white font-medium text-[15px] tracking-wide hover:bg-violet-500 transition-all duration-300 flex items-center justify-center w-full sm:w-auto hover:shadow-[0_0_30px_rgba(124,58,237,0.35)] active:scale-[0.98]"
+                                onMouseEnter={() => setIsHoveringCTA(true)}
+                                onMouseLeave={() => setIsHoveringCTA(false)}
                             >
-                                Submit
-                            </button>
-                        </form>
-
-                        <div className="flex items-start justify-center gap-3 text-left max-w-[500px] mx-auto opacity-70 hover:opacity-100 transition-opacity duration-300">
-                            <input type="checkbox" id="privacy" className="mt-1 w-4 h-4 rounded accent-white cursor-pointer" required />
-                            <label htmlFor="privacy" className="text-xs text-white/80 leading-relaxed cursor-pointer select-none pt-0.5">
-                                I agree to the collection and processing of my personal data as described in the <Link href="/privacy" className="underline hover:text-white transition-colors">Privacy Policy</Link>.
-                            </label>
+                                Email Us
+                            </a>
                         </div>
                     </FadeIn>
                 </div>
