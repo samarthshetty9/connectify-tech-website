@@ -17,14 +17,14 @@ function FadeIn({ children, delay = 0, className = "" }) {
 }
 
 const team = [
-    { name: "Abhay Desai", role: "Co-Founder — Tech", bio: "Ex CTO-Ticketing, VP Product-StackIntel, Technical Specialist", gradient: "from-blue-500 to-indigo-600" },
+    { name: "Abhay Desai", role: "Co-Founder — Tech", bio: "Ex CTO-Ticketing, VP Product-StackIntel, Technical Specialist", gradient: "from-violet-500 to-indigo-600" },
     { name: "Chiragsovi SV", role: "Co-Founder — CPO", bio: "Ex CPTO-Unicred Official, Product Lead-Novopay(trustt)", gradient: "from-purple-500 to-pink-600" },
     { name: "Bhuvan Koulagi", role: "Co-Founder — Business", bio: "Infra.market, Ex Deloitte, Ex CBO-The Ticketing", gradient: "from-emerald-500 to-teal-600" },
 ];
 
 const advisors = [
     { name: "Devkant Aggarwal", role: "Chief Advisor", bio: "Fintech Entrepreneur | Angel Investor | Top 50 Most Influential Payment Professional", gradient: "from-amber-500 to-orange-600" },
-    { name: "IBM Leader", role: "Chief Advisor", bio: "Leader Growth Initiatives, Career Education at IBM India Pvt Ltd", gradient: "from-sky-500 to-blue-600" },
+    { name: "IBM Leader", role: "Chief Advisor", bio: "Leader Growth Initiatives, Career Education at IBM India Pvt Ltd", gradient: "from-sky-500 to-violet-600" },
 ];
 
 const domains = [
@@ -71,7 +71,7 @@ export default function AboutPage() {
                                         onMouseEnter={(e) => e.currentTarget.style.borderColor = "var(--border-hover)"}
                                         onMouseLeave={(e) => e.currentTarget.style.borderColor = "var(--border-color)"}
                                     >
-                                        <stat.icon size={20} className="mx-auto mb-2" style={{ color: "var(--color-accent-blue)" }} />
+                                        <stat.icon size={20} className="mx-auto mb-2" style={{ color: "var(--color-accent-violet)" }} />
                                         <div className="text-xl font-bold mb-0.5" style={{ color: "var(--text-primary)" }}>{stat.value}</div>
                                         <div className="text-[10px] uppercase tracking-wider font-medium" style={{ color: "var(--text-muted)" }}>{stat.label}</div>
                                     </div>
@@ -89,7 +89,7 @@ export default function AboutPage() {
                         <FadeIn>
                             <div className="rounded-xl p-7 h-full" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border-color)" }}>
                                 <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: "var(--selection-bg)" }}>
-                                    <Target size={20} style={{ color: "var(--color-accent-blue)" }} />
+                                    <Target size={20} style={{ color: "var(--color-accent-violet)" }} />
                                 </div>
                                 <h3 className="text-lg font-bold mb-2.5" style={{ color: "var(--text-primary)" }}>Our Mission</h3>
                                 <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
@@ -120,7 +120,7 @@ export default function AboutPage() {
                         {domains.map((d, i) => (
                             <FadeIn key={d} delay={i * 0.02}>
                                 <span className="px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-default" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border-color)", color: "var(--text-secondary)" }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--color-accent-blue)"; e.currentTarget.style.color = "var(--text-primary)"; }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--color-accent-violet)"; e.currentTarget.style.color = "var(--text-primary)"; }}
                                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-color)"; e.currentTarget.style.color = "var(--text-secondary)"; }}
                                 >
                                     {d}
@@ -147,7 +147,7 @@ export default function AboutPage() {
                                         {member.name.split(" ").map(n => n[0]).join("")}
                                     </div>
                                     <h3 className="text-sm font-bold mb-0.5" style={{ color: "var(--text-primary)" }}>{member.name}</h3>
-                                    <p className="text-xs font-medium mb-3" style={{ color: "var(--color-accent-blue)" }}>{member.role}</p>
+                                    <p className="text-xs font-medium mb-3" style={{ color: "var(--color-accent-violet)" }}>{member.role}</p>
                                     <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>{member.bio}</p>
                                 </div>
                             </FadeIn>
@@ -211,7 +211,7 @@ export default function AboutPage() {
                         <p className="text-sm mb-8 max-w-md mx-auto" style={{ color: "var(--text-secondary)" }}>
                             Let&apos;s discuss how we can help transform your business with technology.
                         </p>
-                        <Link href="/contact" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-blue/20 transition-all duration-300">
+                        <Link href="/contact" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-violet to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-violet/20 transition-all duration-300">
                             Get in Touch <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
                         </Link>
                     </FadeIn>

@@ -68,7 +68,7 @@ export default function ServicesPage() {
                                             <div className="grid grid-cols-2 gap-1.5">
                                                 {service.capabilities.map((cap, j) => (
                                                     <div key={j} className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
-                                                        <Check size={11} className="shrink-0" style={{ color: "var(--color-accent-blue)" }} />
+                                                        <Check size={11} className="shrink-0" style={{ color: "var(--color-accent-violet)" }} />
                                                         <span>{cap}</span>
                                                     </div>
                                                 ))}
@@ -105,7 +105,7 @@ export default function ServicesPage() {
                     <FadeIn>
                         <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>Need a custom solution?</h2>
                         <p className="mb-8 max-w-md mx-auto" style={{ color: "var(--text-secondary)" }}>Let&apos;s discuss your requirements and build something extraordinary.</p>
-                        <Link href="/contact" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-blue/20 transition-all duration-300">
+                        <Link href="/contact" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-violet to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-violet/20 transition-all duration-300">
                             Start a Project <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
                         </Link>
                     </FadeIn>

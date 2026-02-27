@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -41,7 +41,7 @@ const clientLogos = [
 ];
 
 const platformSolutions = [
-    { name: "Custom Software", icon: Globe, desc: "Scalable, secure, and high-performance apps tailored to your needs.", color: "var(--color-accent-blue)" },
+    { name: "Custom Software", icon: Globe, desc: "Scalable, secure, and high-performance apps tailored to your needs.", color: "var(--color-accent-violet)" },
     { name: "AI & Machine Learning", icon: Brain, desc: "Automate decisions, forecast trends, and power your product with data.", color: "var(--color-accent-purple)" },
     { name: "Cloud Solutions", icon: Cloud, desc: "Future-proof your infrastructure with AWS, Azure, or GCP deployments.", color: "var(--color-accent-cyan)" },
     { name: "UX/UI Design", icon: PenTool, desc: "Seamless, human-centered digital experiences that drive engagement.", color: "var(--color-violet-600)" },
@@ -101,6 +101,8 @@ function FadeIn({ children, delay = 0, direction = "up", scale = 1, className = 
 export default function HomePage() {
     const featuredStudies = caseStudies.slice(0, 6);
     const containerRef = useRef(null);
+    const [hoveredDomain, setHoveredDomain] = useState(null);
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end start"]
@@ -132,7 +134,7 @@ export default function HomePage() {
 
                             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} className="text-4xl sm:text-5xl md:text-[clamp(3rem,5vw,4.5rem)] font-black leading-[1.1] tracking-tight mb-6" style={{ color: "var(--text-primary)" }}>
                                 We are not just building Tech — <br className="hidden sm:block" />
-                                <span className="text-hero-blue">We are building Future.</span>
+                                <span className="text-violet-600 dark:text-violet-500">We are building Future.</span>
                             </motion.h1>
 
                             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-base sm:text-lg md:text-xl max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-medium" style={{ color: "var(--text-secondary)" }}>
@@ -141,7 +143,7 @@ export default function HomePage() {
 
                             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }} className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4">
                                 <Link href="/contact" className="group flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-white font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto" style={{ backgroundColor: "var(--color-violet-600, #7c3aed)" }}>
-                                    Request a demo <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                    Get in Touch <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                 </Link>
                                 <Link href="/case-studies" className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/5 w-full sm:w-auto" style={{ backgroundColor: "transparent", border: "2px solid var(--border-color)", color: "var(--text-primary)" }}>
                                     See Our Work
@@ -160,7 +162,7 @@ export default function HomePage() {
                             <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center scale-[0.85] sm:scale-75 md:scale-90 lg:scale-100 origin-center">
 
                                 {/* Ambient Core Glow */}
-                                <div className="absolute inset-x-10 inset-y-10 bg-gradient-to-tr from-blue-500/30 via-purple-500/20 to-cyan-500/30 blur-[80px] rounded-full mix-blend-screen" />
+                                <div className="absolute inset-x-10 inset-y-10 bg-gradient-to-tr from-violet-500/30 via-purple-500/20 to-cyan-500/30 blur-[80px] rounded-full mix-blend-screen" />
 
                                 {/* 3D Orbital Rings */}
                                 <div className="relative w-[300px] h-[300px] perspective-1000">
@@ -169,9 +171,9 @@ export default function HomePage() {
                                         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
                                         animate={{ rotateX: [360, 0], rotateY: [360, 0] }}
                                         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                                        className="absolute inset-0 rounded-full border-2 border-blue-500/20"
+                                        className="absolute inset-0 rounded-full border-2 border-violet-500/20"
                                     >
-                                        <div className="absolute w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.8)] -top-2 left-1/2 -translate-x-1/2" />
+                                        <div className="absolute w-4 h-4 rounded-full bg-violet-400 shadow-[0_0_15px_rgba(96,165,250,0.8)] -top-2 left-1/2 -translate-x-1/2" />
                                     </motion.div>
 
                                     {/* Middle Ring */}
@@ -196,8 +198,8 @@ export default function HomePage() {
 
                                     {/* Central Quantum Brain */}
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <motion.div animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 blur-md absolute z-0" />
-                                        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 relative z-10 flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.6)] border border-white/20">
+                                        <motion.div animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} className="w-24 h-24 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 blur-md absolute z-0" />
+                                        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 relative z-10 flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.6)] border border-white/20">
                                             <Brain size={40} className="text-white drop-shadow-md" />
                                         </div>
                                     </div>
@@ -209,10 +211,10 @@ export default function HomePage() {
                                 <motion.div
                                     animate={{ y: [0, -10, 0] }}
                                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute top-0 -left-6 md:-left-12 z-20 p-4 rounded-2xl backdrop-blur-xl border border-blue-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
+                                    className="absolute top-0 -left-6 md:-left-12 z-20 p-4 rounded-2xl backdrop-blur-xl border border-violet-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3"
                                     style={{ backgroundColor: "var(--glass-bg)" }}
                                 >
-                                    <div className="bg-blue-500/20 p-2.5 rounded-xl"><Activity size={20} className="text-blue-400" /></div>
+                                    <div className="bg-violet-500/20 p-2.5 rounded-xl"><Activity size={20} className="text-violet-400" /></div>
                                     <div>
                                         <div className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Real-Time</div>
                                         <div className="text-[10px] uppercase tracking-widest font-bold" style={{ color: "var(--text-muted)" }}>Analytics Engine</div>
@@ -228,7 +230,7 @@ export default function HomePage() {
                                 >
                                     <div className="bg-purple-500/20 p-2.5 rounded-xl"><Shield size={24} className="text-purple-400" /></div>
                                     <div>
-                                        <div className="text-base font-black leading-tight uppercase relative" style={{ color: "var(--text-primary)" }}>Bank-Grade</div>
+                                        <div className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Bank Grade</div>
                                         <div className="text-[10px] uppercase tracking-widest font-bold flex items-center gap-1 mt-0.5" style={{ color: "var(--text-muted)" }}>
                                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Protected
                                         </div>
@@ -293,13 +295,13 @@ export default function HomePage() {
             {/* ===== PLATFORM / SERVICES GRID ===== */}
             <section className="py-16 md:py-24 lg:py-32 relative overflow-hidden" style={{ backgroundColor: "var(--bg-primary)" }}>
                 {/* Ambient glowing orbs - adaptive to theme */}
-                <div className="absolute top-0 right-[-10%] w-[30vh] md:w-[50vh] h-[30vh] md:h-[50vh] rounded-full blur-[80px] md:blur-[120px] pointer-events-none opacity-40 mix-blend-multiply dark:mix-blend-screen" style={{ backgroundColor: "var(--color-accent-blue)" }} />
+                <div className="absolute top-0 right-[-10%] w-[30vh] md:w-[50vh] h-[30vh] md:h-[50vh] rounded-full blur-[80px] md:blur-[120px] pointer-events-none opacity-40 mix-blend-multiply dark:mix-blend-screen" style={{ backgroundColor: "var(--color-accent-violet)" }} />
                 <div className="absolute bottom-[-10%] left-[-10%] w-[30vh] md:w-[50vh] h-[30vh] md:h-[50vh] rounded-full blur-[80px] md:blur-[120px] pointer-events-none opacity-30 mix-blend-multiply dark:mix-blend-screen" style={{ backgroundColor: "var(--color-accent-purple)" }} />
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12 md:mb-16">
                         <FadeIn direction="down">
-                            <span className="font-bold tracking-widest uppercase text-xs mb-4 block" style={{ color: "var(--color-accent-cyan)" }}>What We Do</span>
+                            <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-[0.15em] mb-4" style={{ backgroundColor: "var(--selection-bg)", color: "var(--color-accent-violet)", border: "1px solid var(--border-color)" }}>What We Do</span>
                         </FadeIn>
                         <FadeIn delay={0.1}>
                             <h2 className="text-3xl md:text-5xl font-black mb-4 md:mb-6" style={{ color: "var(--text-primary)" }}>Services We Provide to Elevate Your Business</h2>
@@ -363,7 +365,7 @@ export default function HomePage() {
                                 <span className="text-[9px] sm:text-xs font-bold uppercase tracking-wider text-center px-2 sm:px-4 leading-tight mt-0.5 sm:mt-1">Years<br />Exp.</span>
                             </FadeIn>
 
-                            <div className="absolute top-[20%] -left-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full blur-[40px] sm:blur-[60px] opacity-40 -z-10" style={{ backgroundColor: "var(--color-accent-blue)" }} />
+                            <div className="absolute top-[20%] -left-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full blur-[40px] sm:blur-[60px] opacity-40 -z-10" style={{ backgroundColor: "var(--color-accent-violet)" }} />
                         </div>
 
                         {/* Text Content (Right) */}
@@ -379,7 +381,7 @@ export default function HomePage() {
 
                             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-10 sm:mb-12">
                                 <FadeIn delay={0.2} className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
-                                    <div className="p-3.5 rounded-xl shadow-sm shrink-0" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border-color)", color: "var(--color-accent-blue)" }}>
+                                    <div className="p-3.5 rounded-xl shadow-sm shrink-0" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border-color)", color: "var(--color-accent-violet)" }}>
                                         <TrendingUp size={24} />
                                     </div>
                                     <div>
@@ -409,7 +411,7 @@ export default function HomePage() {
             </section>
 
             {/* ===== APPROACH (WHO WE ARE) ===== */}
-            < section className="py-16 md:py-24 lg:py-32" style={{ backgroundColor: "var(--bg-primary)" }}>
+            < section className="pt-16 pb-8 md:pt-24 md:pb-12 lg:pt-32 lg:pb-16" style={{ backgroundColor: "var(--bg-primary)" }}>
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                         <div className="text-center sm:text-left">
@@ -452,11 +454,11 @@ export default function HomePage() {
                         {/* Staggered Cards Layout */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
                             {/* Line connecting nodes */}
-                            <div className="absolute top-1/2 left-0 w-full h-[1px] hidden sm:block pointer-events-none z-0" style={{ background: "linear-gradient(90deg, transparent, var(--color-accent-blue), transparent)" }} />
+                            <div className="absolute top-1/2 left-0 w-full h-[1px] hidden sm:block pointer-events-none z-0" style={{ background: "linear-gradient(90deg, transparent, var(--color-accent-violet), transparent)" }} />
 
                             <div className="space-y-6 sm:mt-16 relative z-10 w-full">
                                 {[
-                                    { icon: Target, title: "1. Consultation", desc: "We understand your goals, challenges, and target audience to define the scope.", colorBase: "var(--color-accent-blue)" },
+                                    { icon: Target, title: "1. Consultation", desc: "We understand your goals, challenges, and target audience to define the scope.", colorBase: "var(--color-accent-violet)" },
                                     { icon: Zap, title: "3. Implementation", desc: "Writing clean, scalable code wrapped in robust security architectures.", colorBase: "var(--color-accent-cyan)" }
                                 ].map((step, i) => (
                                     <FadeIn key={i} delay={i * 0.1} className="w-full">
@@ -499,56 +501,94 @@ export default function HomePage() {
                 </div>
             </section >
 
-            {/* ===== INDUSTRIES ===== */}
-            <section className="py-24 lg:py-32" style={{ backgroundColor: "var(--bg-primary)" }}>
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            {/* ===== INDUSTRIES (EDITORIAL LEDGER LAYOUT - FULL CANVAS) ===== */}
+            <section className="relative pb-16 lg:pb-24 pt-8 lg:pt-16 overflow-hidden transition-colors duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]" style={{ backgroundColor: hoveredDomain !== null ? "transparent" : "var(--bg-primary)" }}>
+
+                {/* Full Canvas Background Imagery Layer */}
+                <div className="absolute inset-0 pointer-events-none z-0">
+                    {/* Render all images, toggle opacity based on state */}
+                    {domains.map((d, i) => (
+                        <div
+                            key={`bg-${i}`}
+                            className={`absolute inset-0 transition-opacity duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${hoveredDomain === i ? 'opacity-100' : 'opacity-0'}`}
+                        >
+                            <Image
+                                src={d.image}
+                                alt={d.name}
+                                fill
+                                className={`object-cover transition-transform duration-[10s] ease-out ${hoveredDomain === i ? 'scale-100' : 'scale-110'}`}
+                                priority={i < 2}
+                            />
+                        </div>
+                    ))}
+                    {/* Deep aesthetic overlay to ensure typography legibility */}
+                    <div className={`absolute inset-0 transition-opacity duration-1000 ${hoveredDomain !== null ? 'opacity-100' : 'opacity-0'}`} style={{
+                        background: 'linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)'
+                    }} />
+                    {/* Base state fallback overlay */}
+                    <div className={`absolute inset-0 bg-black/40 dark:bg-black/60 transition-opacity duration-1000 ${hoveredDomain !== null ? 'opacity-100' : 'opacity-0'}`} />
+                </div>
+
+                <div className="relative max-w-7xl mx-auto px-6 lg:px-8 z-10 transition-colors duration-1000" style={{ color: hoveredDomain !== null ? "white" : "inherit" }}>
                     <FadeIn direction="up">
-                        <SectionHeader label="Industries" title="Domains We Empower" subtitle="Deep expertise across multiple sectors, building tailored solutions to meet unique business challenges and regulatory requirements." centered={true} />
+                        <SectionHeader
+                            label="Industries"
+                            title="Domains We Empower"
+                            subtitle="Deep expertise across multiple sectors, building tailored solutions to meet unique business challenges and regulatory requirements."
+                            centered={true}
+                            invert={hoveredDomain !== null}
+                        />
                     </FadeIn>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+                    {/* Editorial Vertical List */}
+                    <div className="mt-16 lg:mt-24 border-t transition-colors duration-1000" style={{ borderColor: hoveredDomain !== null ? "rgba(255,255,255,0.15)" : "var(--border-color)" }}>
                         {domains.map((d, i) => (
-                            <FadeIn key={i} delay={i * 0.1}>
-                                <Link href={`/case-studies?category=${encodeURIComponent(d.name)}`} className="group block relative h-[420px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                                    {/* Image Background */}
-                                    <Image src={d.image} alt={d.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
+                            <FadeIn key={i} delay={i * 0.1} className="w-full">
+                                <Link
+                                    href={`/case-studies?category=${encodeURIComponent(d.name)}`}
+                                    onMouseEnter={() => setHoveredDomain(i)}
+                                    onMouseLeave={() => setHoveredDomain(null)}
+                                    className="group flex flex-col md:flex-row md:items-center justify-between py-10 md:py-16 border-b transition-colors duration-500 overflow-hidden relative"
+                                    style={{ borderColor: hoveredDomain !== null ? "rgba(255,255,255,0.1)" : "var(--border-color)" }}
+                                >
+                                    {/* Hover Background Accent Glow - Enhanced for dark bg */}
+                                    <div className="absolute top-0 bottom-0 left-0 w-1/2 bg-gradient-to-r from-accent-violet/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[1s]" />
 
-                                    {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+                                    {/* Left: Domain Name (Massive Typography) */}
+                                    <div className="relative z-10 flex-grow pr-8">
+                                        <h3 className={`text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-light tracking-tighter uppercase transition-transform duration-[1s] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:translate-x-8 ${hoveredDomain !== null ? 'text-white/40' : ''}`} style={{ color: hoveredDomain === null ? "var(--text-secondary)" : undefined }}>
+                                            <span className={`transition-colors duration-700 ${hoveredDomain !== null ? 'text-white' : ''} group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accent-violet group-hover:to-accent-cyan`} style={{ color: hoveredDomain === null ? "var(--text-primary)" : undefined }}>
+                                                {d.name}
+                                            </span>
+                                        </h3>
+                                    </div>
 
-                                    {/* Content Overlay */}
-                                    <div className="absolute inset-x-0 bottom-0 p-8 sm:p-10 flex flex-col justify-end h-full">
-                                        <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                            <div className="flex items-center gap-3 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                                                <span className="h-0.5 w-8 bg-accent-blue rounded-full" />
-                                                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-blue">Expertise</span>
-                                            </div>
+                                    {/* Right: Metrics & Arrow */}
+                                    <div className="relative z-10 flex items-center justify-between md:justify-end w-full md:w-auto mt-6 md:mt-0 gap-8">
+                                        <div className="text-left md:text-right">
+                                            <p className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] opacity-50 group-hover:opacity-100 transition-opacity duration-500 mb-1 ${hoveredDomain !== null ? 'text-white' : ''}`} style={{ color: hoveredDomain === null ? "var(--text-primary)" : undefined }}>
+                                                Expertise
+                                            </p>
+                                            <p className={`text-sm md:text-base font-medium transition-colors duration-500 group-hover:text-accent-violet ${hoveredDomain !== null ? 'text-white/70' : ''}`} style={{ color: hoveredDomain === null ? "var(--text-secondary)" : undefined }}>
+                                                {d.count} Projects
+                                            </p>
+                                        </div>
 
-                                            <h3 className="text-3xl sm:text-4xl font-black text-white mb-3 tracking-tight">{d.name}</h3>
-
-                                            <div className="flex items-center justify-between mt-2">
-                                                <p className="text-sm font-medium text-white/70 tracking-wide uppercase">{d.count} Successful Projects</p>
-
-                                                <div className="w-12 h-12 rounded-full flex items-center justify-center bg-black/20 backdrop-blur-md border border-white/10 transform group-hover:rotate-45 transition-all duration-500 group-hover:bg-blue-600 group-hover:border-blue-600">
-                                                    <ArrowRight size={20} className="text-white" />
-                                                </div>
-                                            </div>
+                                        {/* Animated Arrow Icon */}
+                                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-accent-violet group-hover:border-accent-violet group-hover:scale-110" style={{ borderColor: hoveredDomain !== null ? "transparent" : "var(--border-color)", backgroundColor: hoveredDomain !== null ? "rgba(255,255,255,0.05)" : "transparent" }}>
+                                            <ArrowRight size={24} className={`transition-all duration-[0.8s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:text-white -rotate-45 ${hoveredDomain !== null ? 'text-white/50' : 'text-slate-400'}`} />
                                         </div>
                                     </div>
 
-                                    {/* Corner Badge */}
-                                    <div className="absolute top-6 right-6 px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                        Case Studies
-                                    </div>
                                 </Link>
                             </FadeIn>
                         ))}
                     </div>
                 </div>
-            </section >
+            </section>
 
             {/* ===== CASE STUDIES ===== */}
-            <section className="py-24 lg:py-32" style={{ backgroundColor: "var(--bg-primary)" }}>
+            <section className="py-16 lg:py-24" style={{ backgroundColor: "var(--bg-primary)" }}>
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
                     <FadeIn direction="up">
                         <SectionHeader label="Our Work" title="Real Impact. Proven Results." subtitle="Explore how we've helped startups and enterprises alike scale and innovate." centered={false} />
@@ -564,26 +604,40 @@ export default function HomePage() {
                                             <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl font-black shadow-[0_5px_20px_rgba(0,0,0,0.05)] dark:shadow-none group-hover:scale-110 transition-all duration-500 bg-white dark:bg-white/10" style={{ color: "var(--text-primary)" }}>
                                                 {study.title.charAt(0)}
                                             </div>
-                                            <span className="px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:bg-accent-blue group-hover:text-white group-hover:border-accent-blue border border-transparent">
+                                            <span className="px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400 group-hover:bg-accent-violet group-hover:text-white group-hover:border-accent-violet border border-transparent">
                                                 {study.category}
                                             </span>
                                         </div>
 
-                                        <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-accent-blue transition-colors duration-300" style={{ color: "var(--text-primary)" }}>{study.title}</h3>
-                                        <p className="text-sm leading-relaxed mb-10 line-clamp-3 font-medium opacity-70" style={{ color: "var(--text-secondary)" }}>{study.shortDescription}</p>
+                                        <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-accent-violet transition-colors duration-300" style={{ color: "var(--text-primary)" }}>{study.title}</h3>
+                                        <p className="text-sm leading-relaxed mb-6 line-clamp-3 font-medium opacity-70" style={{ color: "var(--text-secondary)" }}>{study.shortDescription}</p>
 
-                                        <div className="pt-6 border-t border-slate-100/10 dark:border-white/5 flex items-center justify-between group-hover:border-blue-500/20 transition-colors">
-                                            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 inline-flex items-center gap-2">
+                                        {/* Tech Stack Pills */}
+                                        <div className="flex flex-wrap gap-2 mb-8">
+                                            {study.techStack?.slice(0, 3).map((tech, idx) => (
+                                                <span key={idx} className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border transition-colors duration-300 group-hover:border-accent-violet/30 group-hover:bg-accent-violet/5" style={{ color: "var(--text-primary)", backgroundColor: "var(--bg-surface)", borderColor: "var(--border-color)" }}>
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                            {study.techStack?.length > 3 && (
+                                                <span className="px-2 py-1 rounded-full text-[10px] font-bold tracking-wider border border-transparent" style={{ color: "var(--text-secondary)" }}>
+                                                    +{study.techStack.length - 3}
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        <div className="pt-6 border-t border-slate-100/10 dark:border-white/5 flex items-center justify-between group-hover:border-violet-500/20 transition-colors">
+                                            <span className="text-xs font-bold uppercase tracking-widest text-violet-600 dark:text-violet-400 inline-flex items-center gap-2">
                                                 Case Study <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                                             </span>
-                                            <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 group-hover:bg-blue-600/5 dark:group-hover:bg-blue-600/20 transition-colors">
-                                                <Layers size={18} className="text-slate-300 dark:text-slate-600 group-hover:text-blue-600" />
+                                            <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 group-hover:bg-violet-600/5 dark:group-hover:bg-violet-600/20 transition-colors">
+                                                <Layers size={18} className="text-slate-300 dark:text-slate-600 group-hover:text-violet-600" />
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Hover Shine Effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue/0 to-accent-blue/0 group-hover:from-accent-blue/[0.02] group-hover:to-accent-blue/0 pointer-events-none transition-all duration-700" />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-accent-violet/0 to-accent-violet/0 group-hover:from-accent-violet/[0.02] group-hover:to-accent-violet/0 pointer-events-none transition-all duration-700" />
                                 </Link>
                             </FadeIn>
                         ))}
@@ -597,32 +651,75 @@ export default function HomePage() {
                 </div>
             </section >
 
-            {/* ===== CTA ===== */}
-            < section className="relative py-24 md:py-32 border-t overflow-hidden" style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)" }}>
-                {/* Background decorative elements */}
-                < div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full pointer-events-none opacity-30 dark:opacity-20 flex justify-center" >
-                    <div className="w-[800px] h-[300px] bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan blur-[120px] rounded-[100%]" />
-                </div >
+            {/* ===== NEWSLETTER CTA (Lightweight Inspired) ===== */}
+            <section className="relative py-24 md:py-36 overflow-hidden mx-4 sm:mx-6 lg:mx-8 mb-24 rounded-3xl" style={{ backgroundColor: '#0a0a0a', border: '8px solid color-mix(in srgb, var(--border-color) 40%, transparent)' }}>
+                {/* Background Image */}
+                <Image
+                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
+                    alt="Newsletter Background"
+                    fill
+                    className="object-cover opacity-40 mix-blend-luminosity grayscale"
+                    unoptimized
+                />
 
-                <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
-                    <FadeIn>
-                        <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-6 md:mb-8 tracking-tight leading-tight" style={{ color: "var(--text-primary)" }}>
-                            Ready to transform your <br className="hidden md:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-purple">business operations?</span>
+                {/* Deep Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a] opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a] opacity-80" />
+
+                {/* Grid / Crosshair Accents */}
+                <div className="absolute top-8 left-8 text-white/20">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
+                </div>
+                <div className="absolute top-8 right-8 text-white/20">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
+                </div>
+                <div className="absolute bottom-8 left-8 text-white/20">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
+                </div>
+                <div className="absolute bottom-8 right-8 text-white/20">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20" /><path d="M2 12h20" /></svg>
+                </div>
+
+                {/* Concentric Circles (Subtle) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/5 pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full border border-white/5 pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[1400px] rounded-full border border-white/5 pointer-events-none" />
+
+                <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+                    <FadeIn direction="up">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-4 tracking-tight text-white uppercase leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                            Tell us about <br className="hidden sm:block" /> your project
                         </h2>
-                        <FadeIn delay={0.2}>
-                            <p className="text-base md:text-xl mb-10 md:mb-12 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                                Join the innovative companies building the future with Connectify. Schedule a free consultation to discuss your next big project.
-                            </p>
-                        </FadeIn>
-                        <div className="flex flex-col sm:flex-row justify-center gap-4">
-                            <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-8 py-4 md:px-10 md:py-5 rounded-full font-bold text-sm md:text-base transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1" style={{ backgroundColor: "var(--color-violet-600, #7c3aed)", color: "white" }}>
-                                Start a Conversation <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
+                        <p className="text-sm md:text-base font-medium mb-12 text-white/80">
+                            Drop your email below and our strategic team will reach out.
+                        </p>
+
+                        <form className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8" onSubmit={(e) => e.preventDefault()}>
+                            <div className="relative w-full sm:w-[400px]">
+                                <input
+                                    type="email"
+                                    placeholder="Your email*"
+                                    className="w-full h-14 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-6 text-white placeholder-white/50 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all duration-300 shadow-inner"
+                                    required
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="h-14 px-10 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:bg-gray-200 transition-colors duration-300 w-full sm:w-auto flex-shrink-0"
+                            >
+                                Submit
+                            </button>
+                        </form>
+
+                        <div className="flex items-start justify-center gap-3 text-left max-w-[500px] mx-auto opacity-70 hover:opacity-100 transition-opacity duration-300">
+                            <input type="checkbox" id="privacy" className="mt-1 w-4 h-4 rounded accent-white cursor-pointer" required />
+                            <label htmlFor="privacy" className="text-xs text-white/80 leading-relaxed cursor-pointer select-none pt-0.5">
+                                I agree to the collection and processing of my personal data as described in the <Link href="/privacy" className="underline hover:text-white transition-colors">Privacy Policy</Link>.
+                            </label>
                         </div>
                     </FadeIn>
                 </div>
-            </section >
+            </section>
         </div >
     );
 }

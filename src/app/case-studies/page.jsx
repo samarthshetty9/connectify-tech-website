@@ -49,9 +49,9 @@ function CaseStudiesContent() {
                             onClick={() => setFilter("All")}
                             className="px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-300"
                             style={{
-                                backgroundColor: filter === "All" ? "var(--color-accent-blue)" : "var(--bg-surface)",
+                                backgroundColor: filter === "All" ? "var(--color-accent-violet)" : "var(--bg-surface)",
                                 color: filter === "All" ? "white" : "var(--text-secondary)",
-                                border: filter === "All" ? "1px solid var(--color-accent-blue)" : "1px solid var(--border-color)",
+                                border: filter === "All" ? "1px solid var(--color-accent-violet)" : "1px solid var(--border-color)",
                             }}
                         >
                             All Projects
@@ -62,9 +62,9 @@ function CaseStudiesContent() {
                                 onClick={() => setFilter(cat)}
                                 className="px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-300"
                                 style={{
-                                    backgroundColor: filter === cat ? "var(--color-accent-blue)" : "var(--bg-surface)",
+                                    backgroundColor: filter === cat ? "var(--color-accent-violet)" : "var(--bg-surface)",
                                     color: filter === cat ? "white" : "var(--text-secondary)",
-                                    border: filter === cat ? "1px solid var(--color-accent-blue)" : "1px solid var(--border-color)",
+                                    border: filter === cat ? "1px solid var(--color-accent-violet)" : "1px solid var(--border-color)",
                                 }}
                             >
                                 {cat}
@@ -81,12 +81,12 @@ function CaseStudiesContent() {
                                     </div>
                                     <div className="p-5">
                                         <div className="flex items-center gap-1.5 mb-2.5">
-                                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold" style={{ backgroundColor: "var(--selection-bg)", color: "var(--color-accent-blue)", border: "1px solid var(--border-color)" }}>{study.category}</span>
+                                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold" style={{ backgroundColor: "var(--selection-bg)", color: "var(--color-accent-violet)", border: "1px solid var(--border-color)" }}>{study.category}</span>
                                             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium" style={{ backgroundColor: "var(--bg-secondary)", color: "var(--text-muted)", border: "1px solid var(--border-color)" }}>{study.domain}</span>
                                         </div>
                                         <h3 className="text-sm font-semibold mb-1.5 transition-colors" style={{ color: "var(--text-primary)" }}>{study.title}</h3>
                                         <p className="text-xs leading-relaxed line-clamp-2 mb-3" style={{ color: "var(--text-muted)" }}>{study.shortDescription}</p>
-                                        <span className="flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--color-accent-blue)" }}>
+                                        <span className="flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--color-accent-violet)" }}>
                                             View Case Study <ArrowRight size={12} />
                                         </span>
                                     </div>

@@ -38,7 +38,7 @@ export default async function CaseStudyPage({ params }) {
                     </Link>
 
                     <div className="flex items-center gap-2 mb-4">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-accent-blue/10 text-accent-blue border border-accent-blue/20">{study.category}</span>
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-accent-violet/10 text-accent-violet border border-accent-violet/20">{study.category}</span>
                         <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/[0.04] text-gray-500 border border-white/[0.06]">{study.domain}</span>
                     </div>
 
@@ -57,7 +57,7 @@ export default async function CaseStudyPage({ params }) {
                 <div className="space-y-10">
                     <div>
                         <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2.5">
-                            <span className="w-6 h-0.5 bg-accent-blue rounded" /> Overview
+                            <span className="w-6 h-0.5 bg-accent-violet rounded" /> Overview
                         </h2>
                         <p className="text-gray-400 leading-relaxed">{study.fullDescription}</p>
                     </div>
@@ -93,13 +93,13 @@ export default async function CaseStudyPage({ params }) {
                         <span className="text-[10px] text-gray-600 uppercase tracking-wider flex items-center gap-1 mb-1">
                             <ArrowLeft size={10} /> Previous
                         </span>
-                        <span className="text-sm text-white font-medium group-hover:text-accent-blue transition-colors">{prev.title}</span>
+                        <span className="text-sm text-white font-medium group-hover:text-accent-violet transition-colors">{prev.title}</span>
                     </Link>
                     <Link href={`/case-studies/${next.slug}`} className="glass rounded-xl p-4 group hover:bg-white/[0.05] transition-all text-right">
                         <span className="text-[10px] text-gray-600 uppercase tracking-wider flex items-center gap-1 justify-end mb-1">
                             Next <ArrowRight size={10} />
                         </span>
-                        <span className="text-sm text-white font-medium group-hover:text-accent-blue transition-colors">{next.title}</span>
+                        <span className="text-sm text-white font-medium group-hover:text-accent-violet transition-colors">{next.title}</span>
                     </Link>
                 </div>
             </section>

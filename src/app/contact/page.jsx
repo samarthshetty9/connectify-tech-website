@@ -54,11 +54,11 @@ export default function ContactPage() {
                                 onMouseLeave={(e) => e.currentTarget.style.borderColor = "var(--border-color)"}
                             >
                                 <div className="w-11 h-11 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform" style={{ backgroundColor: "var(--selection-bg)" }}>
-                                    <Mail size={20} style={{ color: "var(--color-accent-blue)" }} />
+                                    <Mail size={20} style={{ color: "var(--color-accent-violet)" }} />
                                 </div>
                                 <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>Chat to us</h3>
                                 <p className="text-xs mb-2" style={{ color: "var(--text-muted)" }}>Our team is here to help.</p>
-                                <p className="text-xs font-medium" style={{ color: "var(--color-accent-blue)" }}>sales@connectify.global</p>
+                                <p className="text-xs font-medium" style={{ color: "var(--color-accent-violet)" }}>sales@connectify.global</p>
                             </a>
                         </FadeIn>
                         <FadeIn delay={0.08}>
@@ -98,7 +98,7 @@ export default function ContactPage() {
                                 <h2 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Message Ready to Send!</h2>
                                 <p className="text-sm mb-5" style={{ color: "var(--text-secondary)" }}>
                                     Your email client should open with the pre-filled message. If not, email us at{" "}
-                                    <a href="mailto:sales@connectify.global" style={{ color: "var(--color-accent-blue)" }}>sales@connectify.global</a>
+                                    <a href="mailto:sales@connectify.global" style={{ color: "var(--color-accent-violet)" }}>sales@connectify.global</a>
                                 </p>
                                 <button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", company: "", service: "", message: "" }); }} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all" style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)", color: "var(--text-primary)" }}>
                                     Send Another
@@ -162,7 +162,7 @@ export default function ContactPage() {
                                     />
                                 </div>
 
-                                <button type="submit" className="group w-full flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-blue/20 transition-all duration-300">
+                                <button type="submit" className="group w-full flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-accent-violet to-accent-purple text-white font-semibold text-sm hover:shadow-xl hover:shadow-accent-violet/20 transition-all duration-300">
                                     Send Message <Send size={15} className="group-hover:translate-x-0.5 transition-transform" />
                                 </button>
                             </form>

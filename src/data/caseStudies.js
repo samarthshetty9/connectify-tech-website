@@ -9,7 +9,7 @@ export const caseStudies = [
         challenge: "Job seekers struggle to navigate fragmented job markets, craft compelling résumés, and access professional networks. Traditional job portals lack personalization and AI-powered optimization capabilities.",
         solution: "We built a unified mobile-first platform with AI-powered job matching, intelligent résumé optimization using NLP, and a built-in community collaboration space. The platform uses machine learning to continuously improve recommendations.",
         techStack: ["React Native", "Node.js", "Python", "TensorFlow", "Firebase", "AWS"],
-        color: "from-blue-500 to-cyan-500",
+        color: "from-violet-500 to-cyan-500",
     },
     {
         slug: "flycure-health",
@@ -57,7 +57,7 @@ export const caseStudies = [
         challenge: "Fleet operators needed a unified dashboard to monitor vehicles across locations with real-time data, route history, and performance analytics.",
         solution: "We built an intuitive dashboard with live GPS tracking, route playback, ride analytics, and custom status filters that transform raw movement into actionable insights.",
         techStack: ["React", "Node.js", "MongoDB", "Google Maps API", "Socket.io", "AWS"],
-        color: "from-cyan-500 to-blue-500",
+        color: "from-cyan-500 to-violet-500",
     },
     {
         slug: "ai-lead-discovery",
@@ -105,7 +105,7 @@ export const caseStudies = [
         challenge: "Cross-border payments are costly, slow, and lack transparency. Businesses and individuals need a seamless way to manage multi-currency transactions.",
         solution: "We built a mobile-first remittance platform integrating securely with global banking networks, automating compliance checks, and providing real-time transaction tracking with transparent, cost-effective international transfers.",
         techStack: ["React Native", "Node.js", "PostgreSQL", "AWS", "Stripe API"],
-        color: "from-blue-600 to-indigo-600",
+        color: "from-violet-600 to-indigo-600",
     },
     {
         slug: "bobo",
@@ -189,7 +189,7 @@ export const caseStudies = [
         challenge: "Companies need transparent, policy-compliant expense management with multi-level approvals and real-time visibility into departmental spending.",
         solution: "We built a platform with real-time expense tracking, spending limits, automated reimbursements, receipt uploads, analytics dashboards, and policy enforcement tools.",
         techStack: ["React", "Node.js", "PostgreSQL", "AWS", "Stripe"],
-        color: "from-sky-500 to-blue-600",
+        color: "from-sky-500 to-violet-600",
     },
     {
         slug: "enqupay",
@@ -249,7 +249,7 @@ export const caseStudies = [
         challenge: "Remote mentoring and professional collaborations lack dedicated platforms that combine video networking with session tracking and compensation management.",
         solution: "We built a purpose-built video platform with session scheduling, face-to-face interactions, time tracking for monetary incentives, and relationship management tools.",
         techStack: ["React", "Node.js", "WebRTC", "PostgreSQL", "Firebase", "AWS"],
-        color: "from-indigo-500 to-blue-500",
+        color: "from-indigo-500 to-violet-500",
     },
     {
         slug: "blitz-meet",
@@ -273,7 +273,7 @@ export const caseStudies = [
         challenge: "Organizations face language barriers, tedious manual meeting documentation, and missed context when key stakeholders are unable to attend critical meetings.",
         solution: "We built a robust video networking platform integrating AI for live transcription, automated summaries, and a novel AI Meeting Assistant capable of answering questions on behalf of absent users.",
         techStack: ["React", "Node.js", "WebRTC", "Python", "OpenAI", "AWS"],
-        color: "from-blue-600 to-cyan-600",
+        color: "from-violet-600 to-cyan-600",
     },
     {
         slug: "consumer-loyalty",

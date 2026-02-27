@@ -83,11 +83,11 @@ export default function Navbar() {
                 <div className="grid grid-cols-2 lg:grid-cols-3 items-center h-16">
                     {/* Logo (Left aligned in grid) */}
                     <Link href="/" className="flex items-center gap-2.5 group w-fit">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center font-bold text-white text-sm group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-violet to-accent-purple flex items-center justify-center font-bold text-white text-sm group-hover:scale-110 transition-transform duration-300">
                             C
                         </div>
                         <span className="text-base font-bold tracking-tight transition-colors" style={{ color: "var(--text-primary)" }}>
-                            Connectify<span className="text-accent-blue">.</span>
+                            Connectify<span className="text-accent-violet">.</span>
                         </span>
                     </Link>
 
@@ -119,7 +119,7 @@ export default function Navbar() {
                                             {!isActive && (
                                                 <span
                                                     className="absolute bottom-1.5 left-4 right-4 h-[2px] rounded-full scale-x-0 group-hover/nav:scale-x-100 transition-transform origin-left duration-300"
-                                                    style={{ backgroundColor: "var(--color-accent-blue, #3b82f6)" }}
+                                                    style={{ backgroundColor: "var(--color-accent-violet, #7c3aed)" }}
                                                 />
                                             )}
                                         </Link>
@@ -135,7 +135,7 @@ export default function Navbar() {
                                             onMouseEnter={handleMegaEnter}
                                             onMouseLeave={handleMegaLeave}
                                         >
-                                            <div className="h-0.5 bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan" />
+                                            <div className="h-0.5 bg-gradient-to-r from-accent-violet via-accent-purple to-accent-cyan" />
                                             <div className="p-6 grid grid-cols-3 gap-6 text-left">
                                                 {link.columns.map((col, ci) => (
                                                     <div key={ci}>
@@ -150,7 +150,7 @@ export default function Navbar() {
                                                                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--bg-surface-hover)"}
                                                                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
                                                                 >
-                                                                    <item.icon size={16} className="shrink-0 mt-0.5" style={{ color: "var(--color-accent-blue)" }} />
+                                                                    <item.icon size={16} className="shrink-0 mt-0.5" style={{ color: "var(--color-accent-violet)" }} />
                                                                     <div>
                                                                         <div className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>{item.name}</div>
                                                                         <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>{item.desc}</div>
@@ -162,7 +162,7 @@ export default function Navbar() {
                                                 ))}
                                             </div>
                                             <div className="px-6 py-3" style={{ borderTop: "1px solid var(--border-color)", backgroundColor: "var(--bg-secondary)" }}>
-                                                <Link href="/services" className="flex items-center gap-1.5 text-xs font-semibold transition-colors" style={{ color: "var(--color-accent-blue)" }}>
+                                                <Link href="/services" className="flex items-center gap-1.5 text-xs font-semibold transition-colors" style={{ color: "var(--color-accent-violet)" }}>
                                                     View All Services <ArrowRight size={12} />
                                                 </Link>
                                             </div>
@@ -184,7 +184,7 @@ export default function Navbar() {
                                     {!isActive && (
                                         <span
                                             className="absolute bottom-1.5 left-4 right-4 h-[2px] rounded-full scale-x-0 group-hover/nav:scale-x-100 transition-transform origin-left duration-300"
-                                            style={{ backgroundColor: "var(--color-accent-blue, #3b82f6)" }}
+                                            style={{ backgroundColor: "var(--color-accent-violet, #7c3aed)" }}
                                         />
                                     )}
                                 </Link>
